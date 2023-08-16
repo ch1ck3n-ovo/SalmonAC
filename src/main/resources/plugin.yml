@@ -1,0 +1,8 @@
+name: SalmonAC
+version: '3.0.0'
+main: com.ch1ck3n.salmonac.SalmonAC
+commands:
+  salmon:
+    permission: salmonac.admin
+depend:
+  - ProtocolLib

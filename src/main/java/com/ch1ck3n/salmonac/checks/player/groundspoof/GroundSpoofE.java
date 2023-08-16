@@ -1,0 +1,70 @@
+package com.ch1ck3n.salmonac.checks.player.groundspoof;
+
+import com.ch1ck3n.salmonac.checks.Check;
+import com.ch1ck3n.salmonac.events.SalmonMoveEvent;
+import com.ch1ck3n.salmonac.utils.MathUtil;
+import com.ch1ck3n.salmonac.utils.PlayerUtil;
+import org.bukkit.GameMode;
+import org.bukkit.event.EventHandler;
+import org.bukkit.potion.PotionEffectType;
+
+public class GroundSpoofE extends Check {
+    public GroundSpoofE(String name, Response response, Punishment punishment, String description) {
+        super(name, response, punishment, description);
+        this.setType("(E)");
+    }
+
+    @EventHandler
+    public void onMove(SalmonMoveEvent e) {
+        if( e.getPlayer().getGameMode() == GameMode.CREATIVE ) return;
+
+        // Type E
+        // My Flux NoFall ==
+        if( e.getRespawnTick() < 40 ) return;
+        if( e.getSlimeTick() < 20 ) return;
+        if( (e.isFuzzyServerGround() && !e.isFuzzyCollidingHorizontally()) ) return;
+        if( e.isTouchingLiquid() ) return;
+
+        // Check
+        if ( e.getFallDistance() > 1 && e.getPlayer().getFallDistance() == 0 && !e.isServerGround() ) {
+            this.setVlPerFail(MathUtil.getVlFromDouble(e.getFallDistance() - e.getPlayer().getFallDistance()));
+            flag( e.getPlayer(), "ServerFallDistance = " + String.format("%.10f", e.getFallDistance()) +
+                    "\nClientFallDistance = " + String.format("%.10f", e.getPlayer().getFallDistance()) +
+                    "\nServerGround = " + e.isServerGround() );
+            if ( this.getResponse() == Response.FIX ) {
+                e.getPlayer().setFallDistance((float) (e.getFallDistance()));
+            }
+        }
+
+//        // Type F
+//        // Baguar NoFall codes
+//        if( e.getRespawnTick() < 40 || e.getPlaceBlockTick() < 6 || e.getSlimeTick() == 0 ||
+//                e.isSuperFuzzyServerGround() || e.isTouchingLiquid() ) {} else {
+//            if ( e.isClientGround() != e.isServerGround() || e.isClientGround() != (e.getDeltaY() > 0) ) {
+//                this.setType("(F)");
+//                this.setVlPerFail(5.0f);
+//                e.getCustomPlayer().groundSpoofFBuffer.onTick();
+//                if( e.getCustomPlayer().groundSpoofFBuffer.getTick() > 5 ) {
+//                    flag(e.getPlayer(), "ClientGround = " + e.isClientGround() +
+//                            "\nServerGround = " + e.isServerGround() +
+//                            "\nDeltaY > 0 = " + (e.getDeltaY() > 0) +
+//                            "\n\n<Baguar> LEMAFO");
+//                }
+//            }else {
+//                e.getCustomPlayer().groundSpoofFBuffer.reduceTick();
+//            }
+//        }
+
+//        // Type G
+//        if( e.getRespawnTick() < 40 || e.getSalmonPlayer().getVelocityY() != 0 ||
+//                e.getSlimeTick() < 20 || (e.isSuperFuzzyServerGround() && e.isCollidingHorizontally()) || e.isTouchingLiquid() ) {} else {
+//            if ( e.getFallDistance() != 0 && e.getPlayer().getFallDistance() == 0 && !e.isServerGround() ) {
+//                this.setType("(G)");
+//                this.setVlPerFail(5.0f);
+//                flag( e.getPlayer(), "ServerFallDistance = " + String.format("%.10f", e.getFallDistance()) +
+//                        "\nClientFallDistance = " + String.format("%.10f", e.getPlayer().getFallDistance()) +
+//                        "\nServerGround = " + e.isServerGround() );
+//            }
+//        }
+    }
+}
