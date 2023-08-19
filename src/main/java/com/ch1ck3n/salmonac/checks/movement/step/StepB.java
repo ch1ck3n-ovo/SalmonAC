@@ -6,8 +6,8 @@ import com.ch1ck3n.salmonac.utils.MathUtil;
 import org.bukkit.event.EventHandler;
 
 public class StepB extends Check {
-    public StepB(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public StepB(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("(B)");
     }
 
@@ -22,7 +22,7 @@ public class StepB extends Check {
         if( e.isTouchingLiquid() ) return;
 
         if (e.isClientGround() && e.isLastClientGround() && e.isServerGround() && e.getDeltaY() > 0D && e.getDeltaY() % 0.125D != 0 ) {
-            this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaY()));
+            this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaY()) * 10);
             flag(e.getPlayer(), "StepHeight = " + e.getDeltaY() +
                     "\nClientGround = " + e.isClientGround() +
                     "\nLastClientGround = " + e.isLastClientGround());

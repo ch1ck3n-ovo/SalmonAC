@@ -724,7 +724,7 @@ public class SalmonMoveEvent extends Event {
         }
 
         if( Math.abs(deltaY - (0.41999998688697815 + PlayerUtil.getAmplifier(player, PotionEffectType.JUMP) * 0.1f)) < 0.00001 && isLastServerGround() ) {
-            salmonPlayer.jumpTick = 10;
+            salmonPlayer.jumpTick = 10 + PlayerUtil.getAmplifier(player, PotionEffectType.JUMP) * 2;
             salmonPlayer.jumping = true;
             salmonPlayer.canJump = false;
         }

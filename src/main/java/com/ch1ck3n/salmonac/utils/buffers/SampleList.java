@@ -1,4 +1,4 @@
-package com.ch1ck3n.salmonac.utils;
+package com.ch1ck3n.salmonac.utils.buffers;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -25,6 +25,14 @@ public class SampleList {
             average += l;
         average /= this.d;
         return average;
+    }
+
+    public long count(Long l) {
+        long i = 0;
+        for(long t : this.ticks) {
+            if(t == l) i++;
+        }
+        return i;
     }
 
     public boolean isFull() {

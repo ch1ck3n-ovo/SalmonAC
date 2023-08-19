@@ -6,8 +6,8 @@ import com.ch1ck3n.salmonac.utils.MathUtil;
 import org.bukkit.event.EventHandler;
 
 public class StepA extends Check {
-    public StepA(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public StepA(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("(A)");
     }
 

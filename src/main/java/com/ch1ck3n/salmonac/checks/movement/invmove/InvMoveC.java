@@ -11,8 +11,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class InvMoveC extends Check {
-    public InvMoveC(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public InvMoveC(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("Attacking");
         this.setVlPerFail(2.0f);
     }
@@ -27,11 +27,7 @@ public class InvMoveC extends Check {
 
         // Check
         if (salmonPlayer.getAttackTick() == 0) {
-            flag(salmonPlayer.getPlayer(), "AttackTick = " + salmonPlayer.getAttackTick() +
-                    (this.getResponse() == Response.CANCEL ? "\n\nEvent is cancelled" : ""));
-            if (this.getResponse() == Response.CANCEL) {
-                e.setCancelled(true);
-            }
+            flag(salmonPlayer.getPlayer(), "AttackTick = " + salmonPlayer.getAttackTick() );
         }
     }
 }

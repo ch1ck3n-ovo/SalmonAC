@@ -1,4 +1,4 @@
-package com.ch1ck3n.salmonac.utils;
+package com.ch1ck3n.salmonac.utils.buffers;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -10,6 +10,11 @@ public class Counter {
         this.d = d;
     }
     private Queue<Long> ticks = new LinkedList<>();
+
+    public int clearTick() {
+        this.ticks.clear();
+        return getTick();
+    }
 
     public int onTick() {
         this.ticks.add(Long.valueOf(System.currentTimeMillis() + d));

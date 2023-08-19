@@ -11,8 +11,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class InvMoveB extends Check {
-    public InvMoveB(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public InvMoveB(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("Sneaking");
         this.setVlPerFail(2.0f);
     }
@@ -27,11 +27,7 @@ public class InvMoveB extends Check {
 
         // Check
         if (salmonPlayer.getPlayer().isSneaking()) {
-            flag(salmonPlayer.getPlayer(), "Sneaking = " + salmonPlayer.getPlayer().isSneaking() +
-                    (this.getResponse() == Response.CANCEL ? "\n\nEvent is cancelled" : ""));
-            if (this.getResponse() == Response.CANCEL) {
-                e.setCancelled(true);
-            }
+            flag(salmonPlayer.getPlayer(), "Sneaking = " + salmonPlayer.getPlayer().isSneaking() );
         }
     }
 }

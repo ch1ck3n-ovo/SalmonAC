@@ -9,8 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
 
 public class MotionE extends Check {
-    public MotionE(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public MotionE(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("Prediction");
     }
 
@@ -36,8 +36,8 @@ public class MotionE extends Check {
                 e.getSalmonPlayer().motionEBuffer.onTick();
                 if (e.getSalmonPlayer().motionEBuffer.getTick() > 2) {
                     this.setVlPerFail(MathUtil.getVlFromDouble(Math.abs(e.getDeltaY() - prediction)) * 10);
-                    flag( e.getPlayer(), "DeltaY = " + String.format("%.10f", e.getDeltaY()) +
-                            "\nPrediction = " + String.format("%.10f", prediction) );
+                    flag( e.getPlayer(), "DeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()) +
+                            "\nPrediction = " + MathUtil.getInfoFromDouble10(prediction) );
                 }
             }
         }

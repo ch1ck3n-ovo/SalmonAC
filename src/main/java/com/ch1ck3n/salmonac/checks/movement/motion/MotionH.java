@@ -9,8 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
 
 public class MotionH extends Check {
-    public MotionH(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public MotionH(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("Collide");
     }
 
@@ -23,16 +23,20 @@ public class MotionH extends Check {
         if( e.getClimbTick() < 2 ) return;
         if( e.getDamageTick() < 2 ) return;
         if( e.isOnLadder() ) return;
+        if( e.getPlaceBlockTick() < 6 ) return;
         if( (e.getServerAirTick() < 6 + PlayerUtil.getAmplifier(e.getPlayer(), PotionEffectType.JUMP)) ) return;
         if( e.isTouchingClimable() ) return;
         if( e.isTouchingLiquid() ) return;
 
         // Check
         if (e.isCollidingHorizontally() && !e.isLastServerGround() && e.getDeltaY() > 0) {
-            this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaY()) * 10);
-            flag(e.getPlayer(), "CollidingHorizontally = " + e.isCollidingHorizontally() +
-                    "\nServerGround = " + e.isServerGround() +
-                    "\nDeltaY = " + String.format("%.10f", e.getDeltaY()));
+            e.getSalmonPlayer().motionHBuffer.onTick();
+            if (e.getSalmonPlayer().motionHBuffer.getTick() > 1) {
+                this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaY()) * 10);
+                flag(e.getPlayer(), "CollidingHorizontally = " + e.isCollidingHorizontally() +
+                        "\nServerGround = " + e.isServerGround() +
+                        "\nDeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()));
+            }
         }
     }
 }

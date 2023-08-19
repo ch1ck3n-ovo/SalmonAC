@@ -1,5 +1,5 @@
 name: SalmonAC
-version: '3.0.0'
+version: '3.2.6'
 main: com.ch1ck3n.salmonac.SalmonAC
 commands:
   salmon:

@@ -8,8 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class SwingA extends Check {
-    public SwingA(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public SwingA(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("(A)");
         this.setVlPerFail(5.0f);
     }
@@ -23,9 +23,6 @@ public class SwingA extends Check {
             // Type A
             if( salmonPlayer.getSwingTick() > 2){
                 flag( player, "SwingTick = " + salmonPlayer.getSwingTick() );
-                if( this.getResponse() == Response.CANCEL ) {
-                    e.setCancelled(true);
-                }
             }
         }
     }

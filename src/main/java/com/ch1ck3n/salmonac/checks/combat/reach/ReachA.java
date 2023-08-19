@@ -10,8 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class ReachA extends Check {
-    public ReachA(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public ReachA(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("(A)");
     }
 
@@ -32,12 +32,9 @@ public class ReachA extends Check {
         if (distance > maxDistance) {
             salmonPlayer.reachABuffer.onTick();
             if (salmonPlayer.reachABuffer.getTick() > 1) {
-                this.setVlPerFail(MathUtil.getVlFromDouble(maxDistance - distance));
-                flag(player, "ActualDistance = " + String.format("%.10f", distance) +
-                        "\nMaxDistance = " + maxDistance);
-                if( this.getResponse() == Response.CANCEL ) {
-                    e.setCancelled(true);
-                }
+                this.setVlPerFail(MathUtil.getVlFromDouble(maxDistance - distance) * 20);
+                flag(player, "ActualDistance = " + MathUtil.getInfoFromDouble10(distance) +
+                        "\nMaxDistance = " + MathUtil.getInfoFromDouble10(maxDistance));
             }
         }
     }

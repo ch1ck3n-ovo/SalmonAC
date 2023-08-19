@@ -1,5 +1,7 @@
 package com.ch1ck3n.salmonac.utils;
 
+import com.ch1ck3n.salmonac.utils.buffers.Counter;
+import com.ch1ck3n.salmonac.utils.buffers.SampleList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -23,19 +25,25 @@ public class SalmonPlayer {
     // Movement.InvMove
     public static Counter invMoveDBuffer = new Counter();
 
-    // Movement.JesusA
+    // Movement.Jesus
     public static Counter jesusBBuffer = new Counter();
     public static Counter jesusCBuffer = new Counter();
 
-    // Movement.MotionA
+    // Movement.Motion
     public static Counter motionEBuffer = new Counter();
+    public static Counter motionHBuffer = new Counter();
     public static Counter motionIBuffer = new Counter();
 
-    // Movement.SpeedA
-    public static Counter speedBBuffer = new Counter();
+    // Movement.Speed
+    public static Counter speedCBuffer = new Counter();
+    public static Counter speedEBuffer = new Counter();
+    public static Counter speedFBuffer = new Counter();
+    public static SampleList speedFSampleList = new SampleList(100);
+    public static Counter speedGBuffer = new Counter();
+    public static SampleList speedHSampleList = new SampleList(100);
 
     // Player.GroundSpoof
-    public static Counter groundSpoofFBuffer = new Counter();
+    public static Counter groundSpoofCBuffer = new Counter();
 
     // World.Timer
     public static Counter timerABuffer = new Counter();
@@ -134,7 +142,7 @@ public class SalmonPlayer {
         this.lastLocation = location;
     }
 
-    /* ----- MotionA -----*/
+    /* ----- Motion -----*/
     public double deltaX, deltaY, deltaZ;
     public double getDeltaX() {
         return deltaX;
@@ -420,6 +428,8 @@ public class SalmonPlayer {
     }
 
     /* ----- Others ----- */
+    public boolean flag1, flag2; // For SpeedF
+    public boolean flag3, flag4; // For SpeedH
     public boolean jumping;
     public boolean isJumping() {
         return jumping;

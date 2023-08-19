@@ -9,8 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
 
 public class GroundSpoofC extends Check {
-    public GroundSpoofC(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public GroundSpoofC(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("(C)");
     }
 
@@ -30,15 +30,13 @@ public class GroundSpoofC extends Check {
 
         // Check
         if ( e.getDeltaY() == 0 && e.getLastDeltaY() == 0 && e.isServerGround() && !e.isClientGround() ) {
-            this.setVlPerFail(2.0f);
-            flag(e.getPlayer(), "ClientGround = " + e.isClientGround() +
-                    "\nServerGround = " + e.isServerGround() +
-                    "\nDeltaY = " + String.format("%.10f", e.getDeltaY()) +
-                    "\nLastDeltaY = " + String.format("%.10f", e.getLastDeltaY()) +
-                    (this.getResponse() == Response.FIX ? "\n\nFix FallDistance to " + String.format("%.10f", e.getFallDistance()) : ""));
-            if ( this.getResponse() == Response.FIX ) {
-                if (e.getPlayer().getFallDistance() - 3 > 0) e.getPlayer().damage(e.getPlayer().getFallDistance() - 3);
-                e.getPlayer().setFallDistance((float) e.getFallDistance());
+            e.getSalmonPlayer().groundSpoofCBuffer.onTick();
+            if (e.getSalmonPlayer().groundSpoofCBuffer.getTick() > 3) {
+                this.setVlPerFail(2.0f);
+                flag(e.getPlayer(), "ClientGround = " + e.isClientGround() +
+                        "\nServerGround = " + e.isServerGround() +
+                        "\nDeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()) +
+                        "\nLastDeltaY = " + MathUtil.getInfoFromDouble10(e.getLastDeltaY()) );
             }
         }
     }
