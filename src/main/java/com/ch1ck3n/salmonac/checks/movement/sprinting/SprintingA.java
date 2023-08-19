@@ -5,8 +5,8 @@ import com.ch1ck3n.salmonac.events.SalmonMoveEvent;
 import org.bukkit.event.EventHandler;
 
 public class SprintingA extends Check {
-    public SprintingA(String name, Check.Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public SprintingA(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("(A)");
         this.setVlPerFail(2.0f);
     }
@@ -15,8 +15,8 @@ public class SprintingA extends Check {
     public void onMove(SalmonMoveEvent e) {
         // Type A
         if( e.getPlayer().isBlocking() && e.getPlayer().isSprinting() ) {
-            flag(e.getPlayer(), "BlockingA = " + e.getPlayer().isBlocking() +
-                    "\nSprintingt = " + e.getPlayer().isSprinting());
+            flag(e.getPlayer(), "Blocking = " + e.getPlayer().isBlocking() +
+                    "\nSprinting = " + e.getPlayer().isSprinting());
         }
     }
 }

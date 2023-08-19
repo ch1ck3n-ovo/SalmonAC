@@ -125,10 +125,43 @@ public class PlayerUtil {
         weaponDamageList.put(Material.DIAMOND_SPADE, 4);
     }
 
-    /*public static boolean isMovingBackward(double deltaX, double deltaZ, float yaw) {
-        return deltaX > 0D && deltaZ < 0D && yaw > 0F && yaw < 90F
-                || deltaX > 0D && deltaZ > 0D && yaw > 90F && yaw < 180F
-                || deltaX < 0D && deltaZ > 0D && yaw > 180F && yaw < 270F
-                || deltaX < 0D && deltaZ < 0D && yaw > 270F && yaw < 360F;
-    }*/
+    public static float[] movementInput(double x, double z, double xz, float yaw, float d) {
+        double x1 = -Math.sin(Math.toRadians(yaw + 45)) * xz;
+        double z1 = Math.cos(Math.toRadians(yaw + 45)) * xz;
+        double x2 = -Math.sin(Math.toRadians(yaw - 45)) * xz;
+        double z2 = Math.cos(Math.toRadians(yaw - 45)) * xz;
+        if(Math.abs(x-x1) < d &&Math.abs(z-z1) < d) {
+            return new float[] {0.98f, -0.98f};
+        }else if(Math.abs(x-x2) < d &&Math.abs(z-z2) < d) {
+            return new float[] {0.98f, 0.98f};
+        }
+        double x3 = -Math.sin(Math.toRadians(yaw + 225)) * xz;
+        double z3 = Math.cos(Math.toRadians(yaw + 225)) * xz;
+        double x4 = -Math.sin(Math.toRadians(yaw + 135)) * xz;
+        double z4 = Math.cos(Math.toRadians(yaw + 135)) * xz;
+        if(Math.abs(x-x3) < d &&Math.abs(z-z3) < d) {
+            return new float[] {-0.98f, 0.98f};
+        }else if(Math.abs(x-x4) < d &&Math.abs(z-z4) < d) {
+            return new float[] {-0.98f, -0.98f};
+        }
+        double x5 = -Math.sin(Math.toRadians(yaw)) * xz;
+        double z5 = Math.cos(Math.toRadians(yaw)) * xz;
+        double x6 = -Math.sin(Math.toRadians(yaw + 180)) * xz;
+        double z6 = Math.cos(Math.toRadians(yaw + 180)) * xz;
+        if(Math.abs(x-x5) < d &&Math.abs(z-z5) < d) {
+            return new float[] {0.98f, 0.0f};
+        }else if(Math.abs(x-x6) < d &&Math.abs(z-z6) < d) {
+            return new float[] {-0.98f, 0.0f};
+        }
+        double x7 = -Math.sin(Math.toRadians(yaw + 90)) * xz;
+        double z7 = Math.cos(Math.toRadians(yaw + 90)) * xz;
+        double x8 = -Math.sin(Math.toRadians(yaw - 90)) * xz;
+        double z8 = Math.cos(Math.toRadians(yaw - 90)) * xz;
+        if(Math.abs(x-x7) < d && Math.abs(z-z7) < d) {
+            return new float[] {0.0f, -0.98f};
+        }else if(Math.abs(x-x8) < d && Math.abs(z-z8) < d) {
+            return new float[] {0.0f, 0.98f};
+        }
+        return new float[] {0.0f, 0.0f};
+    }
 }

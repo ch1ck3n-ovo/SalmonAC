@@ -7,8 +7,8 @@ import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 
 public class SpeedA extends Check {
-    public SpeedA(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public SpeedA(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("StableMotion");
     }
 
@@ -28,10 +28,10 @@ public class SpeedA extends Check {
         if( e.getWebTick() == 0 ) return;
 
         // Check
-        if (e.getDeltaXZ() != 0 && e.getLastDeltaXZ() != 0 && e.getDeltaXZ() == e.getLastDeltaXZ()) {
-            this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaXZ()) * 2);
-            flag(e.getPlayer(), "DeltaXZ = " + e.getDeltaXZ() +
-                    "\nLastDeltaXZ = " + e.getLastDeltaXZ());
+        if (e.getDeltaXZ() != 0 && e.getLastDeltaXZ() != 0 && Math.abs(e.getDeltaXZ()) == Math.abs(e.getLastDeltaXZ())) {
+            this.setVlPerFail(2.0f);
+            flag(e.getPlayer(), "DeltaXZ = " + MathUtil.getInfoFromDouble10(Math.abs(e.getDeltaXZ())) +
+                    "\nLastDeltaXZ = " + MathUtil.getInfoFromDouble10(Math.abs(e.getLastDeltaXZ())));
         }
     }
 }

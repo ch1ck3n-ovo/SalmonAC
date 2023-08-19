@@ -6,8 +6,8 @@ import com.ch1ck3n.salmonac.utils.MathUtil;
 import org.bukkit.event.EventHandler;
 
 public class TimerB extends Check {
-    public TimerB(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public TimerB(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("Slow");
     }
 

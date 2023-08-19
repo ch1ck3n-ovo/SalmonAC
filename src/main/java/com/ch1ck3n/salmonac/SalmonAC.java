@@ -1,7 +1,6 @@
 package com.ch1ck3n.salmonac;
 
 import com.ch1ck3n.salmonac.checks.Check;
-import com.ch1ck3n.salmonac.checks.Debugger;
 import com.ch1ck3n.salmonac.checks.combat.blocking.BlockingA;
 import com.ch1ck3n.salmonac.checks.combat.critical.CriticalA;
 import com.ch1ck3n.salmonac.checks.combat.critical.CriticalB;
@@ -88,88 +87,96 @@ public final class SalmonAC extends JavaPlugin implements Listener {
         PlayerUtil.weaponDamageListSetup();
 
         /* ----- Check Setup ----- */
-        checkManager.addCheck( new Debugger("Debugger", Check.Response.NONE, Check.Punishment.NONE,"This is a debugger") );
 
-        //Combat
-//        checkManager.addCheck(new Aim("Aim", Check.Response.NONE, Check.Punishment.KICK, "Invalid rotations"));
+        // Combat
+//        checkManager.addCheck(new Aim("Aim", Check.Category.COMBAT, Check.Punishment.KICK, "Invalid rotations"));
 
         // Combat.Blocking
-        checkManager.addCheck( new BlockingA("Blocking(A)", Check.Response.NONE, Check.Punishment.KICK, "Attack while blocking") );
+        checkManager.addCheck( new BlockingA("Blocking(A)", Check.Category.COMBAT, Check.Punishment.KICK, "Attack while blocking") );
 
         // Combat.Critical
-        checkManager.addCheck( new CriticalA("Critical(A)", Check.Response.NONE, Check.Punishment.KICK, "Modify packet to do critical" +
+        checkManager.addCheck( new CriticalA("Critical(A)", Check.Category.COMBAT, Check.Punishment.KICK, "Modify packet to do critical" +
                 "\n(Crits with 0 FallDistance)") );
-        checkManager.addCheck( new CriticalB("Critical(B)", Check.Response.NONE, Check.Punishment.KICK, "Modify packet to do critical" +
+        checkManager.addCheck( new CriticalB("Critical(B)", Check.Category.COMBAT, Check.Punishment.KICK, "Modify packet to do critical" +
                 "\n(Crits with FallDistance but Different GroundState)") );
-        checkManager.addCheck( new CriticalC("Critical(C)", Check.Response.NONE, Check.Punishment.KICK, "Modify packet to do critical" +
+        checkManager.addCheck( new CriticalC("Critical(C)", Check.Category.COMBAT, Check.Punishment.KICK, "Modify packet to do critical" +
                 "\n(Crits with bad GroundState)") );
 
         // Combat.Reach
-        checkManager.addCheck( new ReachA("Reach(A)", Check.Response.NONE, Check.Punishment.KICK, "Modify reach distance to hit further") );
+        checkManager.addCheck( new ReachA("Reach(A)", Check.Category.COMBAT, Check.Punishment.KICK, "Modify reach distance to hit further") );
 
         // Combat.Swing
-        checkManager.addCheck( new SwingA("Swing(A)", Check.Response.NONE, Check.Punishment.KICK, "Cancel packet to not to swing") );
+        checkManager.addCheck( new SwingA("Swing(A)", Check.Category.COMBAT, Check.Punishment.KICK, "Cancel packet to not to swing") );
 
-//        checkManager.addCheck( new Velocity("Velocity", Check.Response.NONE, Check.Punishment.KICK, "Cancel packet to get no knockback") );
+//        checkManager.addCheck( new Velocity("Velocity", Check.Category.COMBAT, Check.Punishment.KICK, "Cancel packet to get no knockback") );
 
         // Movement.InvMove
-        checkManager.addCheck( new InvMoveA("InvMove(A)", Check.Response.NONE, Check.Punishment.KICK, "Click gui while sprinting") );
-        checkManager.addCheck( new InvMoveB("InvMove(B)", Check.Response.NONE, Check.Punishment.KICK, "Click gui while sneaking") );
-        checkManager.addCheck( new InvMoveC("InvMove(C)", Check.Response.NONE, Check.Punishment.KICK, "Click gui while attacking entity") );
-        checkManager.addCheck( new InvMoveD("InvMove(D)", Check.Response.NONE, Check.Punishment.KICK, "Click gui while rotating") );
-        checkManager.addCheck( new InvMoveE("InvMove(E)", Check.Response.NONE, Check.Punishment.KICK, "Click gui while placing block") );
+        checkManager.addCheck( new InvMoveA("InvMove(A)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Click gui while sprinting") );
+        checkManager.addCheck( new InvMoveB("InvMove(B)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Click gui while sneaking") );
+        checkManager.addCheck( new InvMoveC("InvMove(C)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Click gui while attacking entity") );
+        checkManager.addCheck( new InvMoveD("InvMove(D)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Click gui while rotating") );
+        checkManager.addCheck( new InvMoveE("InvMove(E)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Click gui while placing block") );
 
         // Movement.Jesus
-        checkManager.addCheck( new JesusA("Jesus(A)", Check.Response.NONE, Check.Punishment.KICK, "Walk on liquid") );
-        checkManager.addCheck( new JesusB("Jesus(B)", Check.Response.NONE, Check.Punishment.KICK, "Walk on liquid") );
-        checkManager.addCheck( new JesusC("Jesus(C)", Check.Response.NONE, Check.Punishment.KICK, "Walk on liquid") );
+        checkManager.addCheck( new JesusA("Jesus(A)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Walk on liquid") );
+        checkManager.addCheck( new JesusB("Jesus(B)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Walk on liquid") );
+        checkManager.addCheck( new JesusC("Jesus(C)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Walk on liquid") );
 
         // Movement.Motion
-        checkManager.addCheck( new MotionA("Motion(A)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
-        checkManager.addCheck( new MotionB("Motion(B)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
-        checkManager.addCheck( new MotionC("Motion(C)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
-        checkManager.addCheck( new MotionD("Motion(D)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
-        checkManager.addCheck( new MotionE("Motion(E)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
-        checkManager.addCheck( new MotionF("Motion(F)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
-        checkManager.addCheck( new MotionG("Motion(G)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
-        checkManager.addCheck( new MotionH("Motion(H)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
+        checkManager.addCheck( new MotionA("Motion(A)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
+        checkManager.addCheck( new MotionB("Motion(B)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
+        checkManager.addCheck( new MotionC("Motion(C)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
+        checkManager.addCheck( new MotionD("Motion(D)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
+        checkManager.addCheck( new MotionE("Motion(E)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
+        checkManager.addCheck( new MotionF("Motion(F)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
+        checkManager.addCheck( new MotionG("Motion(G)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
+        checkManager.addCheck( new MotionH("Motion(H)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
+        checkManager.addCheck( new MotionI("Motion(I)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion Y to do impossible movement") );
 
         // Movement.Speed
-        checkManager.addCheck( new SpeedA("Speed(A)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion XZ to move faster") );
-        checkManager.addCheck( new SpeedB("Speed(B)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion XZ to move faster") );
-        checkManager.addCheck( new SpeedC("Speed(C)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion XZ to move faster") );
-        checkManager.addCheck( new SpeedD("Speed(D)", Check.Response.NONE, Check.Punishment.KICK, "Modify motion XZ to move faster" +
+        checkManager.addCheck( new SpeedA("Speed(A)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
+        checkManager.addCheck( new SpeedB("Speed(B)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
+        checkManager.addCheck( new SpeedC("Speed(C)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
+        checkManager.addCheck( new SpeedD("Speed(D)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster" +
                 "\n(Move to fast without teleporting)") );
+        checkManager.addCheck( new SpeedE("Speed(E)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster" +
+                "\n(Experimental)") );
+        checkManager.addCheck( new SpeedF("Speed(F)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
+        checkManager.addCheck( new SpeedG("Speed(G)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
+//        checkManager.addCheck( new SpeedH("Speed(H)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
 
         // Movement.Sprinting
-        checkManager.addCheck( new SprintingA("Sprinting(A)", Check.Response.NONE,Check.Punishment.KICK, "BlockingA sprinting") );
-        checkManager.addCheck( new SprintingB("Sprinting(B)", Check.Response.NONE,Check.Punishment.KICK, "Hungry sprinting") );
-        checkManager.addCheck( new SprintingC("Sprinting(C)", Check.Response.NONE,Check.Punishment.KICK, "Sneaking sprinting") );
+        checkManager.addCheck( new SprintingA("Sprinting(A)", Check.Category.MOVEMENT,Check.Punishment.KICK, "BlockingA sprinting") );
+        checkManager.addCheck( new SprintingB("Sprinting(B)", Check.Category.MOVEMENT,Check.Punishment.KICK, "Hungry sprinting") );
+        checkManager.addCheck( new SprintingC("Sprinting(C)", Check.Category.MOVEMENT,Check.Punishment.KICK, "Sneaking sprinting") );
+        checkManager.addCheck( new SprintingD("Sprinting(D)", Check.Category.MOVEMENT,Check.Punishment.KICK, "Blind sprinting") );
+        checkManager.addCheck( new SprintingE("Sprinting(E)", Check.Category.MOVEMENT,Check.Punishment.KICK, "No move sprinting") );
+        checkManager.addCheck( new SprintingF("Sprinting(F)", Check.Category.MOVEMENT,Check.Punishment.KICK, "Omni sprinting") );
 
         // Movement.Step
-        checkManager.addCheck( new StepA("Step(A)", Check.Response.NONE, Check.Punishment.KICK, "Modify step height to step higher" +
+        checkManager.addCheck( new StepA("Step(A)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify step height to step higher" +
                 "\n(Vanilla or etc)") );
-        checkManager.addCheck( new StepB("Step(B)", Check.Response.NONE, Check.Punishment.KICK, "Modify step height to step higher" +
+        checkManager.addCheck( new StepB("Step(B)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify step height to step higher" +
                 "\n(Bad ground states)") );
 
         // Player.GroundSpoof
-        checkManager.addCheck( new GroundSpoofA("GroundSpoof(A)", Check.Response.NONE, Check.Punishment.KICK, "Modify packet to spoof ground" +
+        checkManager.addCheck( new GroundSpoofA("GroundSpoof(A)", Check.Category.PLAYER, Check.Punishment.KICK, "Modify packet to spoof ground" +
                 "\n(Spoof ground while it's not, motionY != 0)") );
-        checkManager.addCheck( new GroundSpoofB("GroundSpoof(B)", Check.Response.NONE, Check.Punishment.KICK, "Modify packet to spoof ground" +
+        checkManager.addCheck( new GroundSpoofB("GroundSpoof(B)", Check.Category.PLAYER, Check.Punishment.KICK, "Modify packet to spoof ground" +
                 "\n(Spoof ground while it's not, motionY = 0)") );
-        checkManager.addCheck( new GroundSpoofC("GroundSpoof(C)", Check.Response.NONE, Check.Punishment.KICK, "Modify packet to spoof ground" +
+        checkManager.addCheck( new GroundSpoofC("GroundSpoof(C)", Check.Category.PLAYER, Check.Punishment.KICK, "Modify packet to spoof ground" +
                 "\n(Spoof not ground while it it, motionY = 0)") );
-        checkManager.addCheck( new GroundSpoofD("GroundSpoof(D)", Check.Response.NONE, Check.Punishment.KICK, "Modify packet to spoof ground" +
+        checkManager.addCheck( new GroundSpoofD("GroundSpoof(D)", Check.Category.PLAYER, Check.Punishment.KICK, "Modify packet to spoof ground" +
                 "\n(Spoof ground with C03 mid air)") );
-        checkManager.addCheck( new GroundSpoofE("GroundSpoof(E)", Check.Response.NONE, Check.Punishment.KICK, "Modify packet to spoof ground" +
+        checkManager.addCheck( new GroundSpoofE("GroundSpoof(E)", Check.Category.PLAYER, Check.Punishment.KICK, "Modify packet to spoof ground" +
                 "\n(Patch for the bypass made by me)") );
 
         // World.Timer
-        checkManager.addCheck( new TimerA("Timer(A)", Check.Response.NONE, Check.Punishment.KICK, "Modify timer speed to move faster" +
+        checkManager.addCheck( new TimerA("Timer(A)", Check.Category.WORLD, Check.Punishment.KICK, "Modify timer speed to move faster" +
                 "\n(Max speed 1.21)") );
-        checkManager.addCheck( new TimerB("Timer(B)", Check.Response.NONE, Check.Punishment.KICK, "Modify timer speed to move slower" +
+        checkManager.addCheck( new TimerB("Timer(B)", Check.Category.WORLD, Check.Punishment.KICK, "Modify timer speed to move slower" +
                 "\n(Min speed 0.9)") );
-        checkManager.addCheck( new TimerC("Timer(C)", Check.Response.NONE, Check.Punishment.KICK, "Modify timer speed to move faster or slower" +
+        checkManager.addCheck( new TimerC("Timer(C)", Check.Category.WORLD, Check.Punishment.KICK, "Modify timer speed to move faster or slower" +
                 "\n(More Precisely)") );
 
         checkManager.setupChecks();

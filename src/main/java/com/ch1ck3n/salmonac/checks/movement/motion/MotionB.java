@@ -9,9 +9,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
 
 public class MotionB extends Check {
-    public MotionB(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public MotionB(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("StableMotion");
+        this.setVlPerFail(2.0f);
     }
 
     @EventHandler
@@ -26,12 +27,12 @@ public class MotionB extends Check {
         if( e.isTouchingLiquid() ) return;
         if( e.isTouchingSlab() ) return;
         if( e.isTouchingStair() ) return;
+        if( e.getWebTick() == 0 ) return;
 
         // Check
-        if (e.getDeltaY() != 0 && e.getLastDeltaY() != 0 && e.getDeltaY() == e.getLastDeltaY()) {
-            this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaY()) * 2);
-            flag( e.getPlayer(), "DeltaY = " + String.format("%.10f", e.getDeltaY()) +
-                    "\nLastDeltaY = " + String.format("%.10f", e.getLastDeltaY()) );
+        if (e.getDeltaY() != 0 && e.getLastDeltaY() != 0 && Math.abs(e.getDeltaY()) == Math.abs(e.getLastDeltaY())) {
+            flag( e.getPlayer(), "DeltaY = " + MathUtil.getInfoFromDouble10(Math.abs(e.getDeltaY())) +
+                    "\nLastDeltaY = " + MathUtil.getInfoFromDouble10(Math.abs(e.getLastDeltaY())) );
         }
     }
 }

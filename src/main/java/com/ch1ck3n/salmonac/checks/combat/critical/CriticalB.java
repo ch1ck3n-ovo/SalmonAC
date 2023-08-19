@@ -11,8 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class CriticalB extends Check {
-    public CriticalB(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public CriticalB(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("(B)");
     }
 
@@ -34,17 +34,10 @@ public class CriticalB extends Check {
                 this.setVlPerFail(MathUtil.getVlFromDouble(Math.abs(e.getDamage() - expectedDamage)));
                 flag( player,"ExpectedDamage = " + expectedDamage +
                         "\nActualDamage = " + e.getDamage() +
-                        "\nFallDistance = " + String.format("%.10f", salmonPlayer.getFallDistance()) +
+                        "\nFallDistance = " + MathUtil.getInfoFromDouble10(salmonPlayer.getFallDistance()) +
                         "\nServerGround = " + salmonPlayer.isServerGround() +
                         "\nClientGround = " + salmonPlayer.isClientGround() +
-                        "\nItemInHand = " + player.getItemInHand().getType() +
-                        (this.getResponse() == Response.FIX ? "\n\nFix damage to " + expectedDamage: "") +
-                        (this.getResponse() == Response.CANCEL ? "\n\nEvent cancelled" : ""));
-                if( this.getResponse() == Response.FIX ) {
-                    e.setDamage( expectedDamage );
-                }else if( this.getResponse() == Response.CANCEL ) {
-                    e.setCancelled(true);
-                }
+                        "\nItemInHand = " + player.getItemInHand().getType() );
             }
         }
     }

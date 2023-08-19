@@ -9,8 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
 
 public class GroundSpoofA extends Check {
-    public GroundSpoofA(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public GroundSpoofA(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("(A)");
     }
 
@@ -32,16 +32,12 @@ public class GroundSpoofA extends Check {
         if ( e.getDeltaY() != 0.0D && e.getLastDeltaY() != 0.0D &&
             e.isClientGround() && e.isLastClientGround() && !e.isLastServerGround() && !e.isServerGround() ) {
             this.setVlPerFail(MathUtil.getVlFromDouble(e.getFallDistance() - e.getPlayer().getFallDistance()));
-            flag(e.getPlayer(), "DeltaY = " + String.format("%.10f", e.getDeltaY()) +
-                    "\nLastDeltaY = " + String.format("%.10f", e.getLastDeltaY()) +
+            flag(e.getPlayer(), "DeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()) +
+                    "\nLastDeltaY = " + MathUtil.getInfoFromDouble10(e.getLastDeltaY()) +
                     "\nClientGround = " + e.isClientGround() +
                     "\nLastClientGround = " + e.isLastClientGround() +
                     "\nServerGround = " + e.isServerGround() +
-                    "\nLastServerGround = " + e.isLastServerGround() +
-                    (this.getResponse() == Response.FIX ? "\n\nFix FallDistance to " + String.format("%.10f", e.getFallDistance()) : "") );
-            if ( this.getResponse() == Response.FIX ) {
-                e.getPlayer().setFallDistance((float) e.getFallDistance());
-            }
+                    "\nLastServerGround = " + e.isLastServerGround() );
         }
     }
 }

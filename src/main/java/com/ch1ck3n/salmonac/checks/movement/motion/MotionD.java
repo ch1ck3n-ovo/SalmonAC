@@ -9,8 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
 
 public class MotionD extends Check {
-    public MotionD(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public MotionD(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("Jump");
     }
 
@@ -38,8 +38,8 @@ public class MotionD extends Check {
                 prediction += PlayerUtil.getAmplifier(e.getPlayer(), PotionEffectType.JUMP) * 0.1f;
             if (Math.abs(e.getDeltaY() - prediction) > 0.001) {
                 this.setVlPerFail(MathUtil.getVlFromDouble(Math.abs(e.getDeltaY() - prediction)) * 10);
-                flag( e.getPlayer(), "DeltaY = " + String.format("%.10f", e.getDeltaY()) +
-                        "\nPrediction = " + String.format("%.10f", prediction) );
+                flag( e.getPlayer(), "DeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()) +
+                        "\nPrediction = " + MathUtil.getInfoFromDouble10(prediction) );
             }
         }
     }

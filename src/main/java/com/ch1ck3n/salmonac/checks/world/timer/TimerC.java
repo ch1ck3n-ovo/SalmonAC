@@ -6,8 +6,8 @@ import com.ch1ck3n.salmonac.utils.MathUtil;
 import org.bukkit.event.EventHandler;
 
 public class TimerC extends Check {
-    public TimerC(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public TimerC(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("Average");
     }
 
@@ -27,7 +27,7 @@ public class TimerC extends Check {
             if ( Math.abs(Math.round(e.getSalmonPlayer().timerCSampleList.getAverage()) - 50) > 2 ) {
                 e.getSalmonPlayer().timerCBuffer.onTick();
                 if ( e.getSalmonPlayer().timerCBuffer.getTick() > 7 ) {
-                    this.setVlPerFail(MathUtil.getVlFromFloat(Math.abs(1 - 50f / e.getSalmonPlayer().timerCSampleList.getAverage()) * 2) * 4);
+                    this.setVlPerFail(MathUtil.getVlFromFloat(Math.abs(1 - 50f / e.getSalmonPlayer().timerCSampleList.getAverage()) * 10) );
                     flag(e.getPlayer(), "Speed = " + (50f / e.getSalmonPlayer().timerCSampleList.getAverage()) +
                             "\nAverage = " + e.getSalmonPlayer().timerCSampleList.getAverage() +
                             "\nʕ•ᴥ•ʔ");

@@ -9,8 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
 
 public class GroundSpoofE extends Check {
-    public GroundSpoofE(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public GroundSpoofE(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("(E)");
     }
 
@@ -21,19 +21,19 @@ public class GroundSpoofE extends Check {
         // Type E
         // My Flux NoFall ==
         if( e.getRespawnTick() < 40 ) return;
+        if( e.getJumpTick() != 0 ) return;
         if( e.getSlimeTick() < 20 ) return;
         if( (e.isFuzzyServerGround() && !e.isFuzzyCollidingHorizontally()) ) return;
         if( e.isTouchingLiquid() ) return;
+        if( e.isTouchingSlab() ) return;
+        if( e.isTouchingStair() ) return;
 
         // Check
         if ( e.getFallDistance() > 1 && e.getPlayer().getFallDistance() == 0 && !e.isServerGround() ) {
             this.setVlPerFail(MathUtil.getVlFromDouble(e.getFallDistance() - e.getPlayer().getFallDistance()));
-            flag( e.getPlayer(), "ServerFallDistance = " + String.format("%.10f", e.getFallDistance()) +
-                    "\nClientFallDistance = " + String.format("%.10f", e.getPlayer().getFallDistance()) +
+            flag( e.getPlayer(), "ServerFallDistance = " + MathUtil.getInfoFromDouble10(e.getFallDistance()) +
+                    "\nClientFallDistance = " + MathUtil.getInfoFromDouble10(e.getPlayer().getFallDistance()) +
                     "\nServerGround = " + e.isServerGround() );
-            if ( this.getResponse() == Response.FIX ) {
-                e.getPlayer().setFallDistance((float) (e.getFallDistance()));
-            }
         }
 
 //        // Type F

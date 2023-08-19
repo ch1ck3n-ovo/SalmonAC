@@ -11,9 +11,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class CriticalC extends Check {
-    public CriticalC(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public CriticalC(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("(C)");
+        this.setVlPerFail(3.0f);
     }
 
     @EventHandler
@@ -32,17 +33,12 @@ public class CriticalC extends Check {
             if( salmonPlayer.getFallDistance() != 0 && salmonPlayer.isServerGround() && salmonPlayer.isClientGround() ){
                 salmonPlayer.criticalCBuffer.onTick();
                 if(salmonPlayer.criticalCBuffer.getTick() > 1){
-                    this.setVlPerFail(MathUtil.getVlFromDouble(Math.abs(e.getDamage() - expectedDamage)));
                     flag( player,"ExpectedDamage = " + expectedDamage +
                             "\nActualDamage = " + e.getDamage() +
-                            "\nFallDistance = " + String.format("%.10f", salmonPlayer.getFallDistance()) +
+                            "\nFallDistance = " + MathUtil.getInfoFromDouble10(salmonPlayer.getFallDistance()) +
                             "\nServerGround = " + salmonPlayer.isServerGround() +
                             "\nClientGround = " + salmonPlayer.isClientGround() +
-                            "\nItemInHand = " + player.getItemInHand().getType() +
-                            (this.getResponse() == Response.CANCEL ? "\n\nEvent cancelled" : ""));
-                    if( this.getResponse() == Response.CANCEL ) {
-                        e.setCancelled(true);
-                    }
+                            "\nItemInHand = " + player.getItemInHand().getType() );
                 }
             }else {
                 salmonPlayer.criticalCBuffer.reduceTick();

@@ -7,8 +7,8 @@ import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 
 public class SpeedC extends Check {
-    public SpeedC(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public SpeedC(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("Prediction");
     }
 
@@ -36,11 +36,11 @@ public class SpeedC extends Check {
         }
         double prediction = e.getLastDeltaXZ() * f4 + 0.026D;
         if (e.getDeltaXZ() - prediction > 0.001) {
-            e.getSalmonPlayer().speedBBuffer.onTick();
-            if ( e.getSalmonPlayer().speedBBuffer.getTick() > 1 ) {
+            e.getSalmonPlayer().speedCBuffer.onTick();
+            if ( e.getSalmonPlayer().speedCBuffer.getTick() > 1 ) {
                 this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaXZ() - prediction) * 5);
-                flag(e.getPlayer(), "DeltaXZ = " + e.getDeltaXZ() +
-                        "\nPrediction = " + prediction);
+                flag(e.getPlayer(), "DeltaXZ = " + MathUtil.getInfoFromDouble10(e.getDeltaXZ()) +
+                        "\nPrediction = " + MathUtil.getInfoFromDouble10(prediction));
             }
         }
     }

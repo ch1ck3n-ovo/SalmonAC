@@ -9,9 +9,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
 
 public class MotionC extends Check {
-    public MotionC(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
-        this.setType("(C)");
+    public MotionC(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
+        this.setType("FastFall");
     }
 
     @EventHandler
@@ -19,13 +19,13 @@ public class MotionC extends Check {
         if( e.getPlayer().getGameMode() == GameMode.CREATIVE ) return;
 
         // Type C (FastFall)
-        if( e.getRespawnTick() < 20 ) return;
+        if( e.getRespawnTick() < 60 ) return;
         if( e.getDamageTick() < 20 ) return;
 
         // Check
         if (e.getDeltaY() < -3.920005) {
             this.setVlPerFail(MathUtil.getVlFromDouble(Math.abs(e.getDeltaY())));
-            flag( e.getPlayer(), "DeltaY = " + String.format("%.10f", e.getDeltaY()) );
+            flag( e.getPlayer(), "DeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()) );
         }
     }
 }

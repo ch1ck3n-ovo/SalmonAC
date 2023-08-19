@@ -8,8 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
 
 public class MotionA extends Check {
-    public MotionA(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public MotionA(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("AirJump");
         this.setVlPerFail(2.0f);
     }
@@ -21,7 +21,10 @@ public class MotionA extends Check {
         // Type A (AirJump)
         // Disable if player just placed a block 6 ticks ago
         if( e.getRespawnTick() < 20 ) return;
+        if( e.isFuzzyServerGround() ) return;
         if( e.getPlaceBlockTick() < 6 ) return;
+        if( e.getLilyAround() != 0 ) return;
+        if( e.isTouchingSlab() ) return;
 
         // Check
         if( e.isJumpUpwards() && !e.isServerGround() && !e.isLastServerGround() ){

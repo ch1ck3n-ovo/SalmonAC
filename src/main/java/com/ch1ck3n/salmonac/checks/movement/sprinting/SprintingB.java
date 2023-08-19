@@ -5,8 +5,8 @@ import com.ch1ck3n.salmonac.events.SalmonMoveEvent;
 import org.bukkit.event.EventHandler;
 
 public class SprintingB extends Check {
-    public SprintingB(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public SprintingB(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("(B)");
         this.setVlPerFail(2.0f);
     }

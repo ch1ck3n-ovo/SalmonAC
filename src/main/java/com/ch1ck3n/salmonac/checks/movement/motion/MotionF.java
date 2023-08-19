@@ -9,9 +9,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
 
 public class MotionF extends Check {
-    public MotionF(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
-        this.setType("Invalid");
+    public MotionF(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
+        this.setType("Invalid(A)");
+        this.setVlPerFail(3.0f);
     }
 
     @EventHandler
@@ -31,9 +32,8 @@ public class MotionF extends Check {
 
         // Check
         if ( e.getFallDistance() != 0 && e.getLastDeltaY() < 0 && e.getDeltaY() > 0 && e.getSalmonPlayer().getLastVelocityY() == 0 ) {
-            this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaY()) * 15);
-            flag( e.getPlayer(), "DeltaY = " + String.format("%.10f", e.getDeltaY()) +
-                    "\nVelocityY = " + String.format("%.10f", e.getSalmonPlayer().getLastVelocityY()) );
+            flag( e.getPlayer(), "DeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()) +
+                    "\nVelocityY = " + MathUtil.getInfoFromDouble10(e.getSalmonPlayer().getLastVelocityY()) );
         }
     }
 }

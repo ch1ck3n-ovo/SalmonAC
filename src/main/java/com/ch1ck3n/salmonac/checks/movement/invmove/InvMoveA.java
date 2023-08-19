@@ -11,8 +11,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class InvMoveA extends Check {
-    public InvMoveA(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public InvMoveA(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
         this.setType("Sprinting");
         this.setVlPerFail(2.0f);
     }
@@ -27,11 +27,7 @@ public class InvMoveA extends Check {
 
         // Check
         if (salmonPlayer.getPlayer().isSprinting()) {
-            flag(salmonPlayer.getPlayer(), "SprintingA = " + salmonPlayer.getPlayer().isSprinting() +
-                    (this.getResponse() == Response.CANCEL ? "\n\nEvent is cancelled" : ""));
-            if (this.getResponse() == Response.CANCEL) {
-                e.setCancelled(true);
-            }
+            flag(salmonPlayer.getPlayer(), "Sprinting = " + salmonPlayer.getPlayer().isSprinting() );
         }
     }
 }

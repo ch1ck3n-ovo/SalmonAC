@@ -10,8 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class Aim extends Check {
-    public Aim(String name, Response response, Punishment punishment, String description) {
-        super(name, response, punishment, description);
+    public Aim(String name, Category category, Punishment punishment, String description) {
+        super(name, category, punishment, description);
     }
 
     @EventHandler

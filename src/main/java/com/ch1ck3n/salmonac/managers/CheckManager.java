@@ -24,7 +24,7 @@ public class CheckManager {
 
     public Check getCheck(String checkName) {
         for( Check c: checks ) {
-            if( c.getCheckName() == checkName ) {
+            if( c.getCheckName().equalsIgnoreCase(checkName) ) {
                 return c;
             }
         }

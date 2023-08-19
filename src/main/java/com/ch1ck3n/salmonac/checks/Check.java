@@ -1,6 +1,7 @@
 package com.ch1ck3n.salmonac.checks;
 
 import com.ch1ck3n.salmonac.SalmonAC;
+import com.ch1ck3n.salmonac.managers.CheckManager;
 import com.ch1ck3n.salmonac.utils.SalmonPlayer;
 import com.ch1ck3n.salmonac.managers.PlayerManager;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -13,6 +14,10 @@ import org.bukkit.event.Listener;
 
 public class Check implements Listener {
 
+    Category category;
+    public Category getCategory() {
+        return category;
+    }
     String description;
     public String getDesc(){
         return description;
@@ -29,10 +34,6 @@ public class Check implements Listener {
         return name;
     }
     Punishment punishment;
-    Response response;
-    public Response getResponse() {
-        return response;
-    }
     String type = "";
     public String getType(){
         return type;
@@ -40,35 +41,22 @@ public class Check implements Listener {
     public void setType(String s){
         type = s;
     }
-    float vlPerFail = 1.0f;
+    float vlPerFail;
     public void setVlPerFail(float f){
         vlPerFail = f;
     }
 
-    public enum Response {
-        NONE, CANCEL, FIX, SETBACK_BUKKIT, SETBACK_SPIGOT;
-    }
+    public enum Category { COMBAT, MOVEMENT, PLAYER, WORLD }
+    public enum Punishment { NONE, KICK, BAN }
 
-    public enum Punishment {
-        NONE, KICK, BAN;
-    }
-
-    public Check(String name, Response response, Punishment punishment, String description){
+    public Check(String name, Category category, Punishment punishment, String description){
+        this.category = category;
         this.description = description;
         this.maxVL = 10.0f;
         this.name = name;
         this.punishment = punishment;
-        this.response = response;
         this.vlPerFail = 1.0f;
     }
-
-//    public void consoleFlag(Player p){
-//        PlayerManager playerManager = SalmonAC.getInstance().getPlayerManager();
-//        SalmonPlayer violator = playerManager.getPlayer( p );
-//        float vl = violator.onFailed( String.valueOf(name) );
-//        String message = SalmonAC.getInstance().getPrefix() + "§e " + p.getName() + "§7 failed §e" + name + " §8[§7x" + vl + "§8]";
-//        Bukkit.getConsoleSender().sendMessage(message);
-//    }
 
     public void flag(Player p){
         send(p,"NONE");
@@ -76,14 +64,10 @@ public class Check implements Listener {
 
     public void flag(Player p, String info) {
         send(p,info);
-//        if ( response == Response.SETBACK_BUKKIT ) {
-//            (SalmonAC.getInstance().getPlayerManager().getPlayer(p)).setBack = true;
-//        }else if ( response == Response.SETBACK_SPIGOT ) {
-//            p.teleport((SalmonAC.getInstance().getPlayerManager().getPlayer(p)).getLastLocation());
-//        }
     }
 
     private void send(Player p,String info){
+        CheckManager checkManager = SalmonAC.getInstance().getCheckManager();
         PlayerManager playerManager = SalmonAC.getInstance().getPlayerManager();
         SalmonPlayer violator = playerManager.getPlayer( p );
         float vl = violator.onFailed( String.valueOf(name), vlPerFail );
@@ -98,8 +82,8 @@ public class Check implements Listener {
                                 "\n§7Click To Teleport" ).create() ) );
         textComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND , "/tp " + p.getName() ) );
 
-        for( Player player : Bukkit.getOnlinePlayers() ){
-            if( playerManager.getPlayer( player ).getVerboseStatus() ){
+        for( Player player : Bukkit.getOnlinePlayers() ) {
+            if( playerManager.getPlayer( player ).getVerboseStatus() ) {
                 player.spigot().sendMessage( textComponent );
             }
         }
