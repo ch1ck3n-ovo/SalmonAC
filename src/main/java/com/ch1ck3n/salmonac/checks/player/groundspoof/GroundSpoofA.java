@@ -29,7 +29,7 @@ public class GroundSpoofA extends Check {
         if( e.getSlimeTick() < 20 ) return;
 
         // Check
-        if ( e.getDeltaY() != 0.0D && e.getLastDeltaY() != 0.0D &&
+        if ( e.getDeltaY() != 0.0D && e.getLastDeltaY() != 0.0D && !e.isInLiquid() &&
             e.isClientGround() && e.isLastClientGround() && !e.isLastServerGround() && !e.isServerGround() ) {
             this.setVlPerFail(MathUtil.getVlFromDoubleOrDefault(e.getFallDistance() - e.getPlayer().getFallDistance(), 1.0f));
             flag(e.getPlayer(), "DeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()) +

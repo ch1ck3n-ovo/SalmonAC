@@ -41,6 +41,7 @@ public class SalmonPlayer {
     public static SampleList speedFSampleList = new SampleList(100);
     public static Counter speedGBuffer = new Counter();
     public static SampleList speedHSampleList = new SampleList(100);
+    public static Counter speedIBuffer = new Counter();
 
     // Player.GroundSpoof
     public static Counter groundSpoofCBuffer = new Counter();
