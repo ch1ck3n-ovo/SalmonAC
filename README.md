@@ -24,3 +24,7 @@ Free Anti-Cheat | Blatant Detection | Packet Based | Asynchronous
 
 ### **World**
 + Timer(A/B/C)  
+
+# What It Detects
++ Criticals(FDP)
++ NoFalls(FDP/LiquidBounce)
