@@ -31,17 +31,18 @@ public class GroundSpoofD extends Check {
         if ( Math.abs(e.getFallDistance() - e.getPlayer().getFallDistance()) > 1 &&
                 e.getFallDistance() / 2 > e.getPlayer().getFallDistance() ) {
             if ( e.getFallDistance() - e.getLastFallDamage() > 0 ) {
-                this.setVlPerFail(MathUtil.getVlFromDouble(e.getFallDistance() - e.getPlayer().getFallDistance()));
+                this.setVlPerFail(MathUtil.getVlFromDoubleOrDefault(e.getFallDistance() - e.getPlayer().getFallDistance(), 2.0f));
                 flag(e.getPlayer(), "ServerFallDistance = " + MathUtil.getInfoFromDouble10(e.getFallDistance()) +
                         "\nClientFallDistance = " + MathUtil.getInfoFromDouble10(e.getPlayer().getFallDistance()) );
-            } else {
-                if ( e.getFallDistance() != 0 ) {
-                    this.setType("(D)");
-                    this.setVlPerFail(4.0f);
-                    flag(e.getPlayer(), "ServerFallDistance = " + MathUtil.getInfoFromDouble10(e.getFallDistance()) +
-                            "\nClientFallDistance = " + MathUtil.getInfoFromDouble10(e.getPlayer().getFallDistance()));
-                }
             }
+//            else {
+//                if ( e.getFallDistance() != 0 ) {
+//                    this.setType("(D)");
+//                    this.setVlPerFail(4.0f);
+//                    flag(e.getPlayer(), "ServerFallDistance = " + MathUtil.getInfoFromDouble10(e.getFallDistance()) +
+//                            "\nClientFallDistance = " + MathUtil.getInfoFromDouble10(e.getPlayer().getFallDistance()));
+//                }
+//            }
         }
     }
 }

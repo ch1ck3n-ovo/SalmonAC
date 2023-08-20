@@ -154,7 +154,6 @@ public class SalmonMoveEvent extends Event {
     public boolean isLastServerGround(){
         return salmonPlayer.isLastServerGround();
     }
-    public Location getLastGroundLocation() { return salmonPlayer.getLastGroundLocation(); }
 
     /* ----- Tick(Ground) ----- */
     public int getServerAirTick(){

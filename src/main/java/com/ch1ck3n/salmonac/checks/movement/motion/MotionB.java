@@ -22,6 +22,7 @@ public class MotionB extends Check {
         // Type B (Stable)
         // Disable when player is onLadder, touchingClimbable, touchingLiquid, touchingSlab or touchingStair
         if( e.getRespawnTick() < 20 ) return;
+        if( e.getClimbTick() < 4 ) return;
         if( e.isOnLadder() ) return;
         if( e.isTouchingClimable() ) return;
         if( e.isTouchingLiquid() ) return;

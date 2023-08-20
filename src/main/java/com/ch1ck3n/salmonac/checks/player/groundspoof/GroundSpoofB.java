@@ -12,6 +12,7 @@ public class GroundSpoofB extends Check {
     public GroundSpoofB(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
         this.setType("(B)");
+        this.setVlPerFail(2.0f);
     }
 
     @EventHandler
@@ -30,7 +31,6 @@ public class GroundSpoofB extends Check {
         // Check
         if ( e.getDeltaY() == 0.0D && e.getLastDeltaY() == 0.0D &&
                 e.isClientGround() && e.isLastClientGround() && !e.isLastServerGround() && !e.isServerGround() ) {
-            this.setVlPerFail(2.0f);
             flag(e.getPlayer(), "DeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()) +
                     "\nLastDeltaY = " + MathUtil.getInfoFromDouble10(e.getLastDeltaY()) +
                     "\nClientGround = " + e.isClientGround() +

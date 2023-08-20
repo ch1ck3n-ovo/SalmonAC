@@ -41,8 +41,8 @@ public class SpeedF extends Check {
                 if( e.getSalmonPlayer().speedFSampleList.count(Long.valueOf(0)) < 5 ) {
                     e.getSalmonPlayer().speedFBuffer.onTick();
                     if ( e.getSalmonPlayer().speedFBuffer.getTick() > 1 ) {
-                        flag(e.getPlayer(), "Flag1 = " + e.getSalmonPlayer().flag1 +
-                                "\nFlag2 = " + e.getSalmonPlayer().flag2 +
+                        flag(e.getPlayer(), "StrafeLeft = " + e.getSalmonPlayer().flag1 +
+                                "\nStrafeRight = " + e.getSalmonPlayer().flag2 +
                                 "\nCount = " + e.getSalmonPlayer().speedFSampleList.count(Long.valueOf(0)) +
                                 "\nDeltaYaw = " + MathUtil.getInfoFromFloat3(Math.abs(e.getDeltaYaw())) +
                                 "\nBuffer = " + e.getSalmonPlayer().speedFBuffer.getTick() );

@@ -36,7 +36,7 @@ public class SpeedG extends Check {
             if ( e.getSalmonPlayer().speedGBuffer.getTick() > 5 ) {
                 flag(e.getPlayer(), "Forward = " + forward +
                         "\nStrafe = " + strafe +
-                        "\nDeltaYaw = " + MathUtil.getInfoFromFloat3(Math.abs(e.getDeltaYaw())) +
+                        "\nDeltaYaw = " + MathUtil.getInfoFromFloat3(Math.abs(e.getDeltaYaw()) % 360) +
                         "\nBuffer = " + e.getSalmonPlayer().speedGBuffer.getTick() );
             }
         }

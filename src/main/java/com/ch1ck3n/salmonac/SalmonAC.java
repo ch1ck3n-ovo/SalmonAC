@@ -139,19 +139,19 @@ public final class SalmonAC extends JavaPlugin implements Listener {
         checkManager.addCheck( new SpeedC("Speed(C)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
         checkManager.addCheck( new SpeedD("Speed(D)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster" +
                 "\n(Move to fast without teleporting)") );
-        checkManager.addCheck( new SpeedE("Speed(E)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster" +
-                "\n(Experimental)") );
+//        checkManager.addCheck( new SpeedE("Speed(E)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster" +
+//                "\n(Experimental)") );
         checkManager.addCheck( new SpeedF("Speed(F)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
         checkManager.addCheck( new SpeedG("Speed(G)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
-//        checkManager.addCheck( new SpeedH("Speed(H)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
+        checkManager.addCheck( new SpeedH("Speed(H)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
 
         // Movement.Sprinting
-        checkManager.addCheck( new SprintingA("Sprinting(A)", Check.Category.MOVEMENT,Check.Punishment.KICK, "BlockingA sprinting") );
+        checkManager.addCheck( new SprintingA("Sprinting(A)", Check.Category.MOVEMENT,Check.Punishment.KICK, "Blocking sprinting") );
         checkManager.addCheck( new SprintingB("Sprinting(B)", Check.Category.MOVEMENT,Check.Punishment.KICK, "Hungry sprinting") );
         checkManager.addCheck( new SprintingC("Sprinting(C)", Check.Category.MOVEMENT,Check.Punishment.KICK, "Sneaking sprinting") );
         checkManager.addCheck( new SprintingD("Sprinting(D)", Check.Category.MOVEMENT,Check.Punishment.KICK, "Blind sprinting") );
         checkManager.addCheck( new SprintingE("Sprinting(E)", Check.Category.MOVEMENT,Check.Punishment.KICK, "No move sprinting") );
-        checkManager.addCheck( new SprintingF("Sprinting(F)", Check.Category.MOVEMENT,Check.Punishment.KICK, "Omni sprinting") );
+        checkManager.addCheck( new SprintingF("Sprinting(F)", Check.Category.MOVEMENT,Check.Punishment.KICK, "Omni-Dir sprinting") );
 
         // Movement.Step
         checkManager.addCheck( new StepA("Step(A)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify step height to step higher" +

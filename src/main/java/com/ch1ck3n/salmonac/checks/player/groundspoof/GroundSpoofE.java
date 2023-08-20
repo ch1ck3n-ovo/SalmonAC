@@ -30,7 +30,7 @@ public class GroundSpoofE extends Check {
 
         // Check
         if ( e.getFallDistance() > 1 && e.getPlayer().getFallDistance() == 0 && !e.isServerGround() ) {
-            this.setVlPerFail(MathUtil.getVlFromDouble(e.getFallDistance() - e.getPlayer().getFallDistance()));
+            this.setVlPerFail(MathUtil.getVlFromDoubleOrDefault(e.getFallDistance() - e.getPlayer().getFallDistance(), 2.0f));
             flag( e.getPlayer(), "ServerFallDistance = " + MathUtil.getInfoFromDouble10(e.getFallDistance()) +
                     "\nClientFallDistance = " + MathUtil.getInfoFromDouble10(e.getPlayer().getFallDistance()) +
                     "\nServerGround = " + e.isServerGround() );

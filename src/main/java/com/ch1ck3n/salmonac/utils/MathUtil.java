@@ -10,6 +10,15 @@ public class MathUtil {
         return (f1 < 0.1f ? 0.1f : f1);
     }
 
+    public static float getVlFromFloatOrDefault(float f, float defaultVl) {
+        float f1 = Float.parseFloat(String.format("%.1f", Math.abs(f)));
+        return (f1 < defaultVl ? defaultVl : f1);
+    }
+    public static float getVlFromDoubleOrDefault(double d, float defaultVl) {
+        float f1 = Float.parseFloat(String.format("%.1f", Math.abs(d)));
+        return (f1 < defaultVl ? defaultVl : f1);
+    }
+
     public static String getInfoFromFloat10(float f) {
         return String.format("%.10f", f);
     }

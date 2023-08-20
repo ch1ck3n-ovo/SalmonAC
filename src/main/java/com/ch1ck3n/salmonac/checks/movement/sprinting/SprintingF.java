@@ -17,6 +17,7 @@ public class SprintingF extends Check {
     public void onMove(SalmonMoveEvent e) {
         // Type E
         if( e.getRespawnTick() < 40 ) return;
+        if( e.getTeleportTick() < 20 ) return;
         if( !e.isServerGround() ) return;
 
         // Check
