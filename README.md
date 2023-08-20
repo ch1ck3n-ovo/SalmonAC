@@ -15,7 +15,7 @@ Free Anti-Cheat | Blatant Detection | Packet Based | Asynchronous
 + InvMove(A/B/C/D/E)  
 + Jesus(A/B/C)  
 + Motion(A/B/C/D/E/F/G/H/I)  
-+ Speed(A/B/C/D/E/F/G/H/I)  
++ Speed(A/B/C/D/F/G/H/I)  
 + Sprinting(A/B/C/D/E)  
 + Step(A/B)  
 
