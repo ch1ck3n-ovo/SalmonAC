@@ -3,10 +3,8 @@ package com.ch1ck3n.salmonac.checks.player.groundspoof;
 import com.ch1ck3n.salmonac.checks.Check;
 import com.ch1ck3n.salmonac.events.SalmonMoveEvent;
 import com.ch1ck3n.salmonac.utils.MathUtil;
-import com.ch1ck3n.salmonac.utils.PlayerUtil;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
-import org.bukkit.potion.PotionEffectType;
 
 public class GroundSpoofC extends Check {
     public GroundSpoofC(String name, Category category, Punishment punishment, String description) {
