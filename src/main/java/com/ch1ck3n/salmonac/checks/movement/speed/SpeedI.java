@@ -3,7 +3,6 @@ package com.ch1ck3n.salmonac.checks.movement.speed;
 import com.ch1ck3n.salmonac.checks.Check;
 import com.ch1ck3n.salmonac.events.SalmonMoveEvent;
 import com.ch1ck3n.salmonac.utils.MathUtil;
-import com.ch1ck3n.salmonac.utils.PlayerUtil;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 
