@@ -19,7 +19,7 @@ public class SpeedH extends Check {
         if( e.getPlayer().getGameMode() == GameMode.CREATIVE ) return;
 
         if( e.getRespawnTick() < 20 ) return;
-        if( !(e.getServerAirTick() < 3) ||  e.getCollidingHorizontallyTick() < 6 || e.getClimbTick() < 4 ) {
+        if( !(e.getServerAirTick() < 3) || e.getCollidingHorizontallyTick() < 6 || e.getClimbTick() < 4 || e.isTouchingLiquid() ) {
             e.getSalmonPlayer().speedHSampleList.clear();
             e.getSalmonPlayer().flag3 = false;
             e.getSalmonPlayer().flag4 = false;

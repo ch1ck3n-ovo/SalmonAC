@@ -139,11 +139,12 @@ public final class SalmonAC extends JavaPlugin implements Listener {
         checkManager.addCheck( new SpeedC("Speed(C)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
         checkManager.addCheck( new SpeedD("Speed(D)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster" +
                 "\n(Move to fast without teleporting)") );
-//        checkManager.addCheck( new SpeedE("Speed(E)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster" +
-//                "\n(Experimental)") );
+        checkManager.addCheck( new SpeedE("Speed(E)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster" +
+                "\n(Experimental)") );
         checkManager.addCheck( new SpeedF("Speed(F)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
         checkManager.addCheck( new SpeedG("Speed(G)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
         checkManager.addCheck( new SpeedH("Speed(H)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
+        checkManager.addCheck( new SpeedI("Speed(I)", Check.Category.MOVEMENT, Check.Punishment.KICK, "Modify motion XZ to move faster") );
 
         // Movement.Sprinting
         checkManager.addCheck( new SprintingA("Sprinting(A)", Check.Category.MOVEMENT,Check.Punishment.KICK, "Blocking sprinting") );

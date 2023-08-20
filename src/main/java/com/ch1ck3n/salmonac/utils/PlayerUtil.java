@@ -92,6 +92,15 @@ public class PlayerUtil {
         return player.getItemInHand().getEnchantmentLevel(enchantment);
     }
 
+    public static int getBootsEnchantmentLevel(Player player, Enchantment enchantment) {
+        if( player.getInventory().getBoots() != null ) {
+            if (!player.getInventory().getBoots().getEnchantments().containsKey(enchantment)) {
+                return 0;
+            }
+        }
+        return player.getItemInHand().getEnchantmentLevel(enchantment);
+    }
+
     public static HashMap<Material, Integer> weaponDamageList = new HashMap<>();
 
     public static int getWeaponDamage(Material material) {

@@ -23,9 +23,12 @@ public class JesusC extends Check {
         // Check
         if ( e.isLastTouchingLiquid() && !e.isServerGround() && e.isLastMathGround() &&
                 e.getLastDeltaY() < 0 && e.getDeltaY() > 0 && Math.abs(e.getDeltaY() - e.getLastDeltaY()) > 0.1 ) {
-            this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaY() - e.getLastDeltaY()));
-            flag(e.getPlayer(), "DeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()) +
-                    "\nLastDeltaY = " + MathUtil.getInfoFromDouble10(e.getLastDeltaY()));
+            e.getSalmonPlayer().jesusCBuffer.onTick();
+            if (e.getSalmonPlayer().jesusCBuffer.getTick() > 1) {
+                this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaY() - e.getLastDeltaY()));
+                flag(e.getPlayer(), "DeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()) +
+                        "\nLastDeltaY = " + MathUtil.getInfoFromDouble10(e.getLastDeltaY()));
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ public class TimerC extends Check {
         if( e.getTeleportTick() < 20 ) return;
 
         // Check
-        if ( e.getDeltaXZ() == 0 || e.getLastDeltaXZ() == 0  || !e.getPlayer().isSprinting() ) {
+        if ( e.getDeltaXZ() == 0 || e.getLastDeltaXZ() == 0  || !e.getPlayer().isSprinting() || e.isTouchingLava() ) {
             e.getSalmonPlayer().timerCSampleList.clear();
             e.getSalmonPlayer().timerCBuffer.reduceTick();
         }
