@@ -26,8 +26,8 @@ public class ReachA extends Check {
         if( salmonPlayer.getEntityAttacked() == null ) return;
 
         // Check
-        double distance = e.getDamager().getLocation().distance(e.getEntity().getLocation()) - 0.4;
-        double maxDistance = 3.1 + Math.abs(Math.hypot(salmonPlayer.getDeltaX(), salmonPlayer.getDeltaZ())) + Math.round(salmonPlayer.getPing() / 50) * 0.1f;
+        double distance = player.getEyeLocation().distance(e.getEntity().getLocation()) - 0.4;
+        double maxDistance = 3.1 + Math.abs(Math.hypot(salmonPlayer.getDeltaX(), salmonPlayer.getDeltaZ())) + Math.round(salmonPlayer.getPing() / 50f) * 0.1f;
         if (player.getGameMode() == GameMode.CREATIVE) maxDistance += 3;
         if (distance > maxDistance) {
             salmonPlayer.reachABuffer.onTick();

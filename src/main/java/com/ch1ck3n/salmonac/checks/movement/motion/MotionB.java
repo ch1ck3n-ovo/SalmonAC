@@ -3,10 +3,8 @@ package com.ch1ck3n.salmonac.checks.movement.motion;
 import com.ch1ck3n.salmonac.checks.Check;
 import com.ch1ck3n.salmonac.events.SalmonMoveEvent;
 import com.ch1ck3n.salmonac.utils.MathUtil;
-import com.ch1ck3n.salmonac.utils.PlayerUtil;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
-import org.bukkit.potion.PotionEffectType;
 
 public class MotionB extends Check {
     public MotionB(String name, Category category, Punishment punishment, String description) {
@@ -22,6 +20,7 @@ public class MotionB extends Check {
         // Type B (Stable)
         // Disable when player is onLadder, touchingClimbable, touchingLiquid, touchingSlab or touchingStair
         if( e.getRespawnTick() < 20 ) return;
+        if( e.getClimbTick() < 4 ) return;
         if( e.isOnLadder() ) return;
         if( e.isTouchingClimable() ) return;
         if( e.isTouchingLiquid() ) return;

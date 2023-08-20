@@ -3,10 +3,8 @@ package com.ch1ck3n.salmonac.checks.player.groundspoof;
 import com.ch1ck3n.salmonac.checks.Check;
 import com.ch1ck3n.salmonac.events.SalmonMoveEvent;
 import com.ch1ck3n.salmonac.utils.MathUtil;
-import com.ch1ck3n.salmonac.utils.PlayerUtil;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
-import org.bukkit.potion.PotionEffectType;
 
 public class GroundSpoofD extends Check {
     public GroundSpoofD(String name, Category category, Punishment punishment, String description) {
@@ -31,17 +29,18 @@ public class GroundSpoofD extends Check {
         if ( Math.abs(e.getFallDistance() - e.getPlayer().getFallDistance()) > 1 &&
                 e.getFallDistance() / 2 > e.getPlayer().getFallDistance() ) {
             if ( e.getFallDistance() - e.getLastFallDamage() > 0 ) {
-                this.setVlPerFail(MathUtil.getVlFromDouble(e.getFallDistance() - e.getPlayer().getFallDistance()));
+                this.setVlPerFail(MathUtil.getVlFromDoubleOrDefault(e.getFallDistance() - e.getPlayer().getFallDistance(), 2.0f));
                 flag(e.getPlayer(), "ServerFallDistance = " + MathUtil.getInfoFromDouble10(e.getFallDistance()) +
                         "\nClientFallDistance = " + MathUtil.getInfoFromDouble10(e.getPlayer().getFallDistance()) );
-            } else {
-                if ( e.getFallDistance() != 0 ) {
-                    this.setType("(D)");
-                    this.setVlPerFail(4.0f);
-                    flag(e.getPlayer(), "ServerFallDistance = " + MathUtil.getInfoFromDouble10(e.getFallDistance()) +
-                            "\nClientFallDistance = " + MathUtil.getInfoFromDouble10(e.getPlayer().getFallDistance()));
-                }
             }
+//            else {
+//                if ( e.getFallDistance() != 0 ) {
+//                    this.setType("(D)");
+//                    this.setVlPerFail(4.0f);
+//                    flag(e.getPlayer(), "ServerFallDistance = " + MathUtil.getInfoFromDouble10(e.getFallDistance()) +
+//                            "\nClientFallDistance = " + MathUtil.getInfoFromDouble10(e.getPlayer().getFallDistance()));
+//                }
+//            }
         }
     }
 }

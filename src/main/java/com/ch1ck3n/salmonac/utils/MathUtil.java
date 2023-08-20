@@ -3,11 +3,20 @@ package com.ch1ck3n.salmonac.utils;
 public class MathUtil {
     public static float getVlFromFloat(float f) {
         float f1 = Float.parseFloat(String.format("%.1f", Math.abs(f)));
-        return (f1 < 0.1f ? 0.1f : f1);
+        return Math.max(f1, 0.1f);
     }
     public static float getVlFromDouble(double d) {
         float f1 = Float.parseFloat(String.format("%.1f", Math.abs(d)));
-        return (f1 < 0.1f ? 0.1f : f1);
+        return Math.max(f1, 0.1f);
+    }
+
+    public static float getVlFromFloatOrDefault(float f, float defaultVl) {
+        float f1 = Float.parseFloat(String.format("%.1f", Math.abs(f)));
+        return Math.max(f1, defaultVl);
+    }
+    public static float getVlFromDoubleOrDefault(double d, float defaultVl) {
+        float f1 = Float.parseFloat(String.format("%.1f", Math.abs(d)));
+        return Math.max(f1, defaultVl);
     }
 
     public static String getInfoFromFloat10(float f) {

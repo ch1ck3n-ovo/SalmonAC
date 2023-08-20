@@ -31,7 +31,7 @@ public class GroundSpoofA extends Check {
         // Check
         if ( e.getDeltaY() != 0.0D && e.getLastDeltaY() != 0.0D &&
             e.isClientGround() && e.isLastClientGround() && !e.isLastServerGround() && !e.isServerGround() ) {
-            this.setVlPerFail(MathUtil.getVlFromDouble(e.getFallDistance() - e.getPlayer().getFallDistance()));
+            this.setVlPerFail(MathUtil.getVlFromDoubleOrDefault(e.getFallDistance() - e.getPlayer().getFallDistance(), 1.0f));
             flag(e.getPlayer(), "DeltaY = " + MathUtil.getInfoFromDouble10(e.getDeltaY()) +
                     "\nLastDeltaY = " + MathUtil.getInfoFromDouble10(e.getLastDeltaY()) +
                     "\nClientGround = " + e.isClientGround() +

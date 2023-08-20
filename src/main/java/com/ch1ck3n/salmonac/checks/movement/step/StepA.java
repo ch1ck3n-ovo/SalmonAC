@@ -22,7 +22,7 @@ public class StepA extends Check {
 
         // Check
         if (e.isServerGround() && e.isLastServerGround() && e.getDeltaY() > 0.6) {
-            this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaY()));
+            this.setVlPerFail(MathUtil.getVlFromDoubleOrDefault(e.getDeltaY(), 2.0f));
             flag(e.getPlayer(), "StepHeight = " + e.getDeltaY() +
                     "\nServerGround = " + e.isServerGround() +
                     "\nLastServerGround = " + e.isLastServerGround());

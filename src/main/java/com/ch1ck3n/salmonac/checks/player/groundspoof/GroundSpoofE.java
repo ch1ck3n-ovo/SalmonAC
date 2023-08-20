@@ -3,10 +3,8 @@ package com.ch1ck3n.salmonac.checks.player.groundspoof;
 import com.ch1ck3n.salmonac.checks.Check;
 import com.ch1ck3n.salmonac.events.SalmonMoveEvent;
 import com.ch1ck3n.salmonac.utils.MathUtil;
-import com.ch1ck3n.salmonac.utils.PlayerUtil;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
-import org.bukkit.potion.PotionEffectType;
 
 public class GroundSpoofE extends Check {
     public GroundSpoofE(String name, Category category, Punishment punishment, String description) {
@@ -30,7 +28,7 @@ public class GroundSpoofE extends Check {
 
         // Check
         if ( e.getFallDistance() > 1 && e.getPlayer().getFallDistance() == 0 && !e.isServerGround() ) {
-            this.setVlPerFail(MathUtil.getVlFromDouble(e.getFallDistance() - e.getPlayer().getFallDistance()));
+            this.setVlPerFail(MathUtil.getVlFromDoubleOrDefault(e.getFallDistance() - e.getPlayer().getFallDistance(), 2.0f));
             flag( e.getPlayer(), "ServerFallDistance = " + MathUtil.getInfoFromDouble10(e.getFallDistance()) +
                     "\nClientFallDistance = " + MathUtil.getInfoFromDouble10(e.getPlayer().getFallDistance()) +
                     "\nServerGround = " + e.isServerGround() );

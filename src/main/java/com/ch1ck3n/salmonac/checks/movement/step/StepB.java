@@ -22,7 +22,7 @@ public class StepB extends Check {
         if( e.isTouchingLiquid() ) return;
 
         if (e.isClientGround() && e.isLastClientGround() && e.isServerGround() && e.getDeltaY() > 0D && e.getDeltaY() % 0.125D != 0 ) {
-            this.setVlPerFail(MathUtil.getVlFromDouble(e.getDeltaY()) * 10);
+            this.setVlPerFail(MathUtil.getVlFromDoubleOrDefault(e.getDeltaY(), 2.0f));
             flag(e.getPlayer(), "StepHeight = " + e.getDeltaY() +
                     "\nClientGround = " + e.isClientGround() +
                     "\nLastClientGround = " + e.isLastClientGround());
