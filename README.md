@@ -36,6 +36,7 @@ Free Anti-Cheat | Blatant Detection | Packet Based | Asynchronous
 # What It Detects
 ### **Combat**
 + Criticals(FDP)
++ NoSwing
 ### **Movement**
 + Flys(FDP)  
 + Glides(FDP)  
