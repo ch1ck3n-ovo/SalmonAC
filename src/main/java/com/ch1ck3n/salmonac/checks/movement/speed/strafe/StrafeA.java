@@ -23,10 +23,6 @@ public class StrafeA extends Check {
 
         float[] movementInput = PlayerUtil.movementInput(e.getDeltaX(), e.getDeltaZ(), e.getDeltaXZ(), e.getPlayer().getLocation().getYaw(), 0.02f);
 
-
-        debug(e.getPlayer(), movementInput[0] / 0.98f+"/"+movementInput[1] / 0.98f);
-
-
         if( e.getClimbTick() < 4 || e.getCollidingHorizontallyTick() < 6 || e.isLastServerGround() || e.isTouchingWater() ) {
             e.getSalmonPlayer().strafeABuffer.clearTick();
             e.getSalmonPlayer().strafeASampleList.clear();
@@ -45,7 +41,7 @@ public class StrafeA extends Check {
             if( strafe == 1.0f ) e.getSalmonPlayer().flag1 = true;
             if( strafe == -1.0f ) e.getSalmonPlayer().flag2 = true;
             if( e.getSalmonPlayer().flag1 && e.getSalmonPlayer().flag2 ) {
-                if( e.getSalmonPlayer().strafeASampleList.count(Long.valueOf(0)) < 5 - (e.getPlayer().isSprinting() ? 0 : 2) ) {
+                if( e.getSalmonPlayer().strafeASampleList.count(0L) < 5 - (e.getPlayer().isSprinting() ? 0 : 2) ) {
                     e.getSalmonPlayer().strafeABuffer.onTick();
                     if ( e.getSalmonPlayer().strafeABuffer.getTick() > 3 ) {
                         flag(e.getPlayer(), "StrafeLeft = " + e.getSalmonPlayer().flag1 +
