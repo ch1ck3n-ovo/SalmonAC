@@ -34,5 +34,15 @@ Free Anti-Cheat | Blatant Detection | Packet Based | Asynchronous
 + Timer(A/B/C)  
 
 # What It Detects
+### **Combat**
 + Criticals(FDP)
-+ NoFalls(FDP/LiquidBounce)
+### **Movement**
++ Flys(FDP)  
++ Glides(FDP)  
++ HighJumps(FDP)
++ Jesus(FDP except AACFly, Dolphin, Horizon1.4.6, Jump, Vulcan)  
++ Speed(FDP except GroundStrafeHop, HypixelHop, Matrix6.6.1, MatrixHop2, MinemanHop, NCPLatest, NCPStable, StrafeHop, TeleportCubeCraft, VerusHop(Normal, VerusHard, Test), VulcanHop )
++ Spiders(FDP)
++ Strafe(FDP mostly)
+### **Player**
++ NoFalls(FDP/LiquidBounce)  
