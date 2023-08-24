@@ -2,9 +2,7 @@ package com.ch1ck3n.salmonac.checks.movement.sprinting;
 
 import com.ch1ck3n.salmonac.checks.Check;
 import com.ch1ck3n.salmonac.events.SalmonMoveEvent;
-import com.ch1ck3n.salmonac.utils.PlayerUtil;
 import org.bukkit.event.EventHandler;
-import org.bukkit.potion.PotionEffectType;
 
 public class SprintingE extends Check {
     public SprintingE(String name, Category category, Punishment punishment, String description) {

@@ -33,7 +33,7 @@ public class Prediction1B extends Check {
         if (!e.isServerGround()) f3 *= 0.5F;
         if (f3 > 0.0F) {
             f1 += (0.54600006F - f1) * f3 / 3.0F;
-            f2 += (0.16277136F * 1.0F - f2) * f3 / 3.0F;
+            f2 += (0.16277136F - f2) * f3 / 3.0F;
         }
 
         double prediction = e.getLastDeltaXZ() * f1 + f2;
