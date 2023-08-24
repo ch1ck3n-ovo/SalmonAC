@@ -13,7 +13,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 public class InvMoveC extends Check {
     public InvMoveC(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("Attacking");
+        this.setType("Attack");
+        this.setSubCategory("InvMove");
         this.setVlPerFail(2.0f);
     }
 

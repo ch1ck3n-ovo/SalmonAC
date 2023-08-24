@@ -7,8 +7,8 @@ import com.ch1ck3n.salmonac.utils.PlayerUtil;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 
-public class SpeedE extends Check {
-    public SpeedE(String name, Category category, Punishment punishment, String description) {
+public class SpeedCode extends Check {
+    public SpeedCode(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
         this.setType("MaxMotion");
         this.setVlPerFail(2.0f);
@@ -19,6 +19,8 @@ public class SpeedE extends Check {
 //        if( e.getPlayer().getGameMode() == GameMode.CREATIVE ) return;
 
         if( e.getRespawnTick() > -1 ) return;
+//        if( e.getRespawnTick() < 20 ) return;
+//        if( e.getDeltaXZ() == 0 ) return;
 
         float forward = 0, strafe = 0, xPred = 0, zPred = 0, x1 = 0, x2 = 0, z1 = 0, z2 = 0, x3 = 0, z3 = 0;
 
@@ -72,11 +74,31 @@ public class SpeedE extends Check {
 
                     x1 = Float.parseFloat(MathUtil.getInfoFromDouble3(e.getLastDeltaX() * f4));
                     z1 = Float.parseFloat(MathUtil.getInfoFromDouble3(e.getLastDeltaZ() * f4));
+
+                    if (e.getPlayer().isSprinting() && e.isLastJumpUpwards()) {
+                        float yw = e.getPlayer().getLocation().getYaw() * 0.017453292F;
+                        xPred -= (double)(Math.sin(yw) * 0.2F);
+                        zPred += (double)(Math.cos(yw) * 0.2F);
+                    }
+
                     x2 = Float.parseFloat(MathUtil.getInfoFromDouble3(xPred));
                     z2 = Float.parseFloat(MathUtil.getInfoFromDouble3(zPred));
                     x3 = Float.parseFloat(MathUtil.getInfoFromDouble3(x1/x2));
                     z3 = Float.parseFloat(MathUtil.getInfoFromDouble3(z1/z2));
-                    e.getPlayer().sendMessage("None/"+x3+"/"+z3);
+
+                    double xz1 = Math.hypot(x1, z1);
+                    double xz2 = Math.hypot(x2, z2);
+
+                    e.getPlayer().sendMessage("None/"+
+                            MathUtil.getInfoFromDouble3(xz1)+"/"+
+                            MathUtil.getInfoFromDouble3(xz2)+"/"+
+                            e.isLastJumpUpwards()+"/"+e.isJumpUpwards());
+
+                    if( xz1 - xz2 > 0.01 ) {
+                        flag(e.getPlayer(), "None " +
+                                "\nDeltaXZ = " + MathUtil.getInfoFromDouble10(xz1) +
+                                "\nPrediction = " + MathUtil.getInfoFromDouble10(xz2));
+                    }
                 }
             }else {
                 float f = forward * forward + strafe * strafe;
@@ -105,7 +127,17 @@ public class SpeedE extends Check {
                     z2 = Float.parseFloat(MathUtil.getInfoFromDouble3(zPred));
                     x3 = Float.parseFloat(MathUtil.getInfoFromDouble3(x1/x2));
                     z3 = Float.parseFloat(MathUtil.getInfoFromDouble3(z1/z2));
-                    e.getPlayer().sendMessage("Lava/"+x3+"/"+z3);
+
+                    double xz1 = Math.hypot(x1, z1);
+                    double xz2 = Math.hypot(x2, z2);
+
+                    e.getPlayer().sendMessage("Lava/"+xz1+"/"+xz2);
+
+                    if( xz1 - xz2 > 0.001 ) {
+                        flag(e.getPlayer(), "Lava " +
+                                "\nDeltaXZ = " + MathUtil.getInfoFromDouble10(xz1) +
+                                "\nPrediction = " + MathUtil.getInfoFromDouble10(xz2));
+                    }
                 }
             }
         }else {
@@ -153,7 +185,17 @@ public class SpeedE extends Check {
                 z2 = Float.parseFloat(MathUtil.getInfoFromDouble3(zPred));
                 x3 = Float.parseFloat(MathUtil.getInfoFromDouble3(x1/x2));
                 z3 = Float.parseFloat(MathUtil.getInfoFromDouble3(z1/z2));
-                e.getPlayer().sendMessage("Water/"+x3+"/"+z3);
+
+                double xz1 = Math.hypot(x1, z1);
+                double xz2 = Math.hypot(x2, z2);
+
+                e.getPlayer().sendMessage("Water/"+xz1+"/"+xz2);
+
+                if( xz1 - xz2 > 0.001 ) {
+                    flag(e.getPlayer(), "Water " +
+                            "\nDeltaXZ = " + MathUtil.getInfoFromDouble10(xz1) +
+                            "\nPrediction = " + MathUtil.getInfoFromDouble10(xz2));
+                }
             }
         }
 

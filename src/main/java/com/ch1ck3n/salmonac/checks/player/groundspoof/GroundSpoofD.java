@@ -9,7 +9,8 @@ import org.bukkit.event.EventHandler;
 public class GroundSpoofD extends Check {
     public GroundSpoofD(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(D)");
+        this.setType("FallDistanceA");
+        this.setSubCategory("GroundSpoof");
     }
 
     @EventHandler
@@ -19,11 +20,13 @@ public class GroundSpoofD extends Check {
         // Type D
         // Spoof Ground in air with C03
         if( e.getRespawnTick() < 40 ) return;
-        if( e.getDeltaY() >= 0 ) return;
-        if( (e.isFuzzyServerGround() && !e.isCollidingHorizontally()) ) return;
         if( e.getPlaceBlockTick() < 6 ) return;
         if( e.getSlimeTick() < 6 ) return;
+
+        if( (e.isFuzzyServerGround() && !e.isCollidingHorizontally()) ) return;
         if( e.isTouchingLiquid() ) return;
+
+        if( e.getDeltaY() >= 0 ) return;
 
         // Check
         if ( Math.abs(e.getFallDistance() - e.getPlayer().getFallDistance()) > 1 &&

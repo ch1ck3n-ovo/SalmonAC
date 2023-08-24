@@ -7,7 +7,8 @@ import org.bukkit.event.EventHandler;
 public class SprintingA extends Check {
     public SprintingA(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(A)");
+        this.setType("UseSword");
+        this.setSubCategory("Sprinting");
         this.setVlPerFail(2.0f);
     }
 

@@ -9,7 +9,8 @@ import org.bukkit.event.EventHandler;
 public class SprintingF extends Check {
     public SprintingF(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(F)");
+        this.setType("Omni-Dir");
+        this.setSubCategory("Sprinting");
         this.setVlPerFail(4.0f);
     }
 
@@ -18,6 +19,7 @@ public class SprintingF extends Check {
         // Type E
         if( e.getRespawnTick() < 40 ) return;
         if( e.getTeleportTick() < 20 ) return;
+
         if( !e.isServerGround() ) return;
 
         // Check

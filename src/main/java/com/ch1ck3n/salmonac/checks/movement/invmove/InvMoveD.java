@@ -14,7 +14,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 public class InvMoveD extends Check {
     public InvMoveD(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("Rotating");
+        this.setType("Rotate");
+        this.setSubCategory("InvMove");
         this.setVlPerFail(2.0f);
     }
 

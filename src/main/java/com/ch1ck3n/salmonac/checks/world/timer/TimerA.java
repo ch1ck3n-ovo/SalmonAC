@@ -9,6 +9,7 @@ public class TimerA extends Check {
     public TimerA(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
         this.setType("Fast");
+        this.setSubCategory("Timer");
     }
 
     @EventHandler

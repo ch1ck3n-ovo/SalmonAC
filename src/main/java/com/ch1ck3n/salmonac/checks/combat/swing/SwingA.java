@@ -10,7 +10,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class SwingA extends Check {
     public SwingA(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(A)");
+        this.setType("NoSwing");
+        this.setSubCategory("Swing");
         this.setVlPerFail(5.0f);
     }
 

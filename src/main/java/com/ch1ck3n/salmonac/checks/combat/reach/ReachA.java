@@ -12,7 +12,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class ReachA extends Check {
     public ReachA(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(A)");
+        this.setType("A");
+        this.setSubCategory("Reach");
     }
 
     @EventHandler
@@ -23,11 +24,12 @@ public class ReachA extends Check {
         // Type A
         if( salmonPlayer.getRespawnTick() < 20 ) return;
         if( salmonPlayer.getAttackTick() > 1 ) return;
+
         if( salmonPlayer.getEntityAttacked() == null ) return;
 
         // Check
-        double distance = player.getEyeLocation().distance(e.getEntity().getLocation()) - 0.4;
-        double maxDistance = 3.1 + Math.abs(Math.hypot(salmonPlayer.getDeltaX(), salmonPlayer.getDeltaZ())) + Math.round(salmonPlayer.getPing() / 50f) * 0.1f;
+        double distance = player.getLocation().distance(e.getEntity().getLocation()) - 0.4;
+        double maxDistance = 3.1d + Math.max(Math.abs(Math.hypot(salmonPlayer.getDeltaX(), salmonPlayer.getDeltaZ())), 0.3d) + Math.round(salmonPlayer.getPing() / 50f) * 0.1f;
         if (player.getGameMode() == GameMode.CREATIVE) maxDistance += 3;
         if (distance > maxDistance) {
             salmonPlayer.reachABuffer.onTick();

@@ -13,7 +13,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class CriticalB extends Check {
     public CriticalB(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(B)");
+        this.setType("B");
+        this.setSubCategory("Critical");
     }
 
     @EventHandler
@@ -25,6 +26,7 @@ public class CriticalB extends Check {
             // Type B
             // Crits with FallDistance but Different GroundState
             if( salmonPlayer.getRespawnTick() < 20 ) return;
+
             if( salmonPlayer.isTouchingStair() ) return;
 
             // Check

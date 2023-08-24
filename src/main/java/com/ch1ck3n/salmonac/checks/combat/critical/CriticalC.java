@@ -13,7 +13,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class CriticalC extends Check {
     public CriticalC(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(C)");
+        this.setType("C");
+        this.setSubCategory("Critical");
         this.setVlPerFail(3.0f);
     }
 
@@ -26,6 +27,7 @@ public class CriticalC extends Check {
             // Type C
             // Crits with bad GroundState
             if( salmonPlayer.getRespawnTick() < 20 ) return;
+
             if( salmonPlayer.lastDeltaY == 0 ) return;
 
             // Check

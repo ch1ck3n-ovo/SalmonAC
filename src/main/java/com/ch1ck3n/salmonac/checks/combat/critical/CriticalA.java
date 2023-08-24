@@ -13,7 +13,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class CriticalA extends Check {
     public CriticalA(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(A)");
+        this.setType("A");
+        this.setSubCategory("Critical");
     }
 
     @EventHandler

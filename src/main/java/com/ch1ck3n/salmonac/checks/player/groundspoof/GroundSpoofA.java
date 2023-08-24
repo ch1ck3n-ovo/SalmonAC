@@ -11,7 +11,8 @@ import org.bukkit.potion.PotionEffectType;
 public class GroundSpoofA extends Check {
     public GroundSpoofA(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(A)");
+        this.setType("AlwaysSpoof.A");
+        this.setSubCategory("GroundSpoof");
     }
 
     @EventHandler
@@ -21,12 +22,14 @@ public class GroundSpoofA extends Check {
         // Type A
         // ClientGround but not ServerGround, DeltaY != 0
         if( e.getRespawnTick() < 40 ) return;
-        if( e.isBoatAround() ) return;
-        if( (e.isFuzzyServerGround() && !e.isFuzzyCollidingHorizontally()) ) return;
         if( e.getPlaceBlockTick() < 6 ) return;
         if( e.getServerAirTick() < 6 + PlayerUtil.getAmplifier(e.getPlayer(), PotionEffectType.JUMP) ) return;
         if( e.getSetBackTick() < 2 ) return;
         if( e.getSlimeTick() < 20 ) return;
+
+        if( e.isBoatAround() ) return;
+        if( (e.isFuzzyServerGround() && !e.isFuzzyCollidingHorizontally()) ) return;
+
 
         // Check
         if ( e.getDeltaY() != 0.0D && e.getLastDeltaY() != 0.0D && !e.isInLiquid() &&

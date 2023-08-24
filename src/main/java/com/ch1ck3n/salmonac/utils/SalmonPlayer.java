@@ -30,18 +30,22 @@ public class SalmonPlayer {
     public static Counter jesusCBuffer = new Counter();
 
     // Movement.Motion
-    public static Counter motionEBuffer = new Counter();
-    public static Counter motionHBuffer = new Counter();
-    public static Counter motionIBuffer = new Counter();
+    public static Counter invalid0CBuffer = new Counter();
+    public static Counter jumpCBuffer = new Counter();
+    public static Counter prediction0ABuffer = new Counter();
 
     // Movement.Speed
-    public static Counter speedCBuffer = new Counter();
-    public static Counter speedEBuffer = new Counter();
-    public static Counter speedFBuffer = new Counter();
-    public static SampleList speedFSampleList = new SampleList(100);
-    public static Counter speedGBuffer = new Counter();
-    public static SampleList speedHSampleList = new SampleList(100);
-    public static Counter speedIBuffer = new Counter();
+    public static Counter prediction1ABuffer = new Counter();
+    public static Counter prediction1BBuffer = new Counter();
+    public static Counter prediction1CBuffer = new Counter();
+    public static Counter strafeABuffer = new Counter();
+    public static SampleList strafeASampleList = new SampleList(100);
+    public static Counter strafeBBuffer = new Counter();
+    public static SampleList strafeCSampleList = new SampleList(100);
+
+
+    // Movement.Sprinting
+    public static Counter sprintingEBuffer = new Counter();
 
     // Player.GroundSpoof
     public static Counter groundSpoofCBuffer = new Counter();
@@ -246,7 +250,7 @@ public class SalmonPlayer {
     public boolean fuzzyServerGround, littleFuzzyServerGround, lastFuzzyServerGround, superFuzzyServerGround,
             mathGround, lastMathGround,
             clientGround, lastClientGround,
-            serverGround, lastServerGround;
+            serverGround, lastServerGround, lastLastServerGround;
     public boolean isFuzzyServerGround(){
         return fuzzyServerGround;
     }
@@ -277,6 +281,9 @@ public class SalmonPlayer {
     public boolean isLastServerGround(){
         return lastServerGround;
     }
+    public boolean isLastLastServerGround(){
+        return lastLastServerGround;
+    }
     public Location lastGroundLocation;
     public Location getLastGroundLocation() { return lastGroundLocation; }
 
@@ -305,12 +312,15 @@ public class SalmonPlayer {
     }
 
     /* ----- Tick(Block) -----*/
-    public int iceTick = 0, slimeTick = 0, waterTick = 0, webTick = 0;
+    public int iceTick = 0, slimeTick = 0, lavaTick = 0, waterTick = 0, webTick = 0;
     public int getIceTick(){
         return iceTick;
     }
     public int getSlimeTick(){
         return slimeTick;
+    }
+    public int getLavaTick(){
+        return lavaTick;
     }
     public int getWaterTick(){
         return waterTick;
@@ -340,7 +350,7 @@ public class SalmonPlayer {
             pistonAround, slimeGround, snowAround,
             touchingClimbable, touchingLava, touchingLiquid, lastTouchingLiquid,
             touchingStair, touchingSlab, touchingWater;
-    public int lilyAround;
+    public int carpetAround, lilyAround;
     public boolean isCollidingHorizontally() {
         return collidingHorizontally;
     }
@@ -349,6 +359,9 @@ public class SalmonPlayer {
     }
     public boolean isFuzzyCollidingHorizontally() {
         return fuzzyCollidingHorizontally;
+    }
+    public int getCarpetAround() {
+        return carpetAround;
     }
     public int getLilyAround() {
         return lilyAround;
@@ -386,7 +399,7 @@ public class SalmonPlayer {
 
     /* ----- Tick(Player) -----*/
     public int collidingHorizontallyTick = 0, collidingVerticallyUpTick = 0,
-            climbTick = 0, hungryTick = 0, itemChangeTick = 0, jumpTick = 0, placeBlockTick = 0,
+            climbTick = 0, hungryTick = 0, itemChangeTick = 0, jumpTick = 0, moveTick = 0, placeBlockTick = 0,
             teleportTick = 0, respawnTick = 0, setBackTick = 0, swingTick = 0;
     public int getCollidingHorizontallyTick() {
         return collidingHorizontallyTick;
@@ -405,6 +418,9 @@ public class SalmonPlayer {
     }
     public int getJumpTick(){
         return jumpTick;
+    }
+    public int getMoveTick(){
+        return moveTick;
     }
     public int getPlaceBlockTick(){
         return placeBlockTick;
@@ -430,14 +446,18 @@ public class SalmonPlayer {
 
     /* ----- Others ----- */
     public boolean flag1, flag2; // For SpeedF
+    public float f1, f2; // For SpeedG
     public boolean flag3, flag4; // For SpeedH
     public boolean jumping;
     public boolean isJumping() {
         return jumping;
     }
-    public boolean jumpUpwards;
+    public boolean jumpUpwards, lastJumpUpwards;
     public boolean isJumpUpwards() {
         return jumpUpwards;
+    }
+    public boolean isLastJumpUpwards() {
+        return lastJumpUpwards;
     }
     public boolean canJump, lastCanJump;
     public boolean isCanJump() {

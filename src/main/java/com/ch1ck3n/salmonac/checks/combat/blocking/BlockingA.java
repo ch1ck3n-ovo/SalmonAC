@@ -8,7 +8,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class BlockingA extends Check {
     public BlockingA(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("Attacking");
+        this.setType("Attack");
+        this.setSubCategory("Blocking");
         this.setVlPerFail(5.0f);
     }
 

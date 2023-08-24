@@ -9,7 +9,8 @@ import org.bukkit.potion.PotionEffectType;
 public class SprintingD extends Check {
     public SprintingD(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(D)");
+        this.setType("Blind");
+        this.setSubCategory("Sprinting");
         this.setVlPerFail(4.0f);
     }
 
