@@ -135,6 +135,9 @@ public class PlayerUtil {
     }
 
     public static float[] movementInput(double x, double z, double xz, float yaw, float d) {
+        if( (x == 0 && z == 0) || xz == 0 ) {
+            return new float[] {0.0f, 0.0f};
+        }
         double x1 = -Math.sin(Math.toRadians(yaw + 45)) * xz;
         double z1 = Math.cos(Math.toRadians(yaw + 45)) * xz;
         double x2 = -Math.sin(Math.toRadians(yaw - 45)) * xz;

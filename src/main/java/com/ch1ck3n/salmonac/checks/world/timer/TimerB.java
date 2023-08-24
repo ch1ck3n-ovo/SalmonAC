@@ -9,6 +9,7 @@ public class TimerB extends Check {
     public TimerB(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
         this.setType("Slow");
+        this.setSubCategory("Timer");
     }
 
     @EventHandler
@@ -20,7 +21,7 @@ public class TimerB extends Check {
 
         // Check
         if (e.getDeltaXZ() == 0) e.getSalmonPlayer().timerBBuffer.reduceTick();
-        if (50 - (e.getPacketTime() - e.getLastPacketTime()) < -5 && e.getSalmonPlayer().timerSpeed.getTick() / 20f < 1) {
+        if (50L - (e.getPacketTime() - e.getLastPacketTime()) < -5L - (e.isTouchingLiquid() ? 3L : 0L) && e.getSalmonPlayer().timerSpeed.getTick() / 20f < 1) {
             e.getSalmonPlayer().timerBBuffer.onTick();
             if (e.getSalmonPlayer().timerBBuffer.getTick() > 10) {
                 this.setVlPerFail(MathUtil.getVlFromFloat(1 - e.getSalmonPlayer().timerSpeed.getTick() / 20f) * 4);

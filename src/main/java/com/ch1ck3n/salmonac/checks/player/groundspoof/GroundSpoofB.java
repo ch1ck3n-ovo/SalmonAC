@@ -9,7 +9,8 @@ import org.bukkit.event.EventHandler;
 public class GroundSpoofB extends Check {
     public GroundSpoofB(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(B)");
+        this.setType("AlwaysSpoof.B");
+        this.setSubCategory("GroundSpoof");
         this.setVlPerFail(2.0f);
     }
 
@@ -20,11 +21,13 @@ public class GroundSpoofB extends Check {
         // Type B
         // ClientGround but not ServerGround, DeltaY = 0
         if( e.getRespawnTick() < 40 ) return;
-        if( e.isBoatAround() ) return;
-        if( e.getLilyAround() > 0 ) return;
         if( e.getPlaceBlockTick() < 6 ) return;
         if( e.getSetBackTick() < 2) return;
         if( e.getSlimeTick() < 20 ) return;
+
+        if( e.isBoatAround() ) return;
+        if( e.getLilyAround() > 0 ) return;
+
 
         // Check
         if ( e.getDeltaY() == 0.0D && e.getLastDeltaY() == 0.0D &&

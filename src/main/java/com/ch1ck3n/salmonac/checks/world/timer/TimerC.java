@@ -9,20 +9,26 @@ public class TimerC extends Check {
     public TimerC(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
         this.setType("Average");
+        this.setSubCategory("Timer");
     }
 
     @EventHandler
     public void onMove(SalmonMoveEvent e) {
 
-        if( e.getRespawnTick() < 40 ) return;
+        if( e.getRespawnTick() < 60 ) return;
         if( e.getTeleportTick() < 20 ) return;
 
         // Check
-        if ( e.getDeltaXZ() == 0 || e.getLastDeltaXZ() == 0  || !e.getPlayer().isSprinting() || e.isTouchingLava() ) {
+        if ( e.getDeltaXZ() == 0 || e.getLastDeltaXZ() == 0 ||
+                !e.getPlayer().isSprinting() || e.isTouchingLiquid() ) {
             e.getSalmonPlayer().timerCSampleList.clear();
             e.getSalmonPlayer().timerCBuffer.reduceTick();
         }
         e.getSalmonPlayer().timerCSampleList.add((e.getPacketTime() - e.getLastPacketTime()));
+        long max = 2;
+        if( (e.getDamageTick() < 4 && e.getLastFallDamage() == 0) ) {
+            max += 3;
+        }
         if ( e.getSalmonPlayer().timerCSampleList.isFull() ) {
             if ( Math.abs(Math.round(e.getSalmonPlayer().timerCSampleList.getAverage()) - 50) > 2 ) {
                 e.getSalmonPlayer().timerCBuffer.onTick();

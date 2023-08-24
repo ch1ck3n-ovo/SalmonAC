@@ -1,24 +1,22 @@
-package com.ch1ck3n.salmonac.checks.movement.motion;
+package com.ch1ck3n.salmonac.checks.movement.motion.invalid;
 
 import com.ch1ck3n.salmonac.checks.Check;
 import com.ch1ck3n.salmonac.events.SalmonMoveEvent;
 import com.ch1ck3n.salmonac.utils.MathUtil;
-import com.ch1ck3n.salmonac.utils.PlayerUtil;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
-import org.bukkit.potion.PotionEffectType;
 
-public class MotionC extends Check {
-    public MotionC(String name, Category category, Punishment punishment, String description) {
+public class Invalid0A extends Check {
+    public Invalid0A(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("FastFall");
+        this.setType("Invalid.FastFall");
+        this.setSubCategory("Motion");
     }
 
     @EventHandler
     public void onMove(SalmonMoveEvent e) {
         if( e.getPlayer().getGameMode() == GameMode.CREATIVE ) return;
 
-        // Type C (FastFall)
         if( e.getRespawnTick() < 60 ) return;
         if( e.getDamageTick() < 20 ) return;
 

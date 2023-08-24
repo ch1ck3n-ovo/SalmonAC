@@ -8,7 +8,8 @@ import org.bukkit.event.EventHandler;
 public class StepA extends Check {
     public StepA(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(A)");
+        this.setType("Vanilla");
+        this.setSubCategory("Step");
     }
 
     @EventHandler
@@ -18,6 +19,7 @@ public class StepA extends Check {
         if( e.getRespawnTick() < 20 ) return;
         if( e.getSetBackTick() < 2 ) return;
         if( e.getTeleportTick() < 20 ) return;
+
         if( e.isInBlock() ) return;
 
         // Check

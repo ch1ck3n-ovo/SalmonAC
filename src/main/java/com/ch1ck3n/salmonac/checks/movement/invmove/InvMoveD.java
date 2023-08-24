@@ -7,14 +7,13 @@ import com.ch1ck3n.salmonac.utils.SalmonPlayer;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class InvMoveD extends Check {
     public InvMoveD(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("Rotating");
+        this.setType("Rotate");
+        this.setSubCategory("InvMove");
         this.setVlPerFail(2.0f);
     }
 

@@ -9,7 +9,8 @@ import org.bukkit.event.EventHandler;
 public class GroundSpoofC extends Check {
     public GroundSpoofC(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(C)");
+        this.setType("NoGround");
+        this.setSubCategory("GroundSpoof");
         this.setVlPerFail(2.0f);
     }
 
@@ -21,10 +22,11 @@ public class GroundSpoofC extends Check {
         // ServerGround but not ClientGround, DeltaY = 0
         if( e.getRespawnTick() < 40 ) return;
         if( e.getDamageTick() < 4 ) return;
-        if( !e.isFuzzyServerGround() ) return;
-        if( e.isPistonAround() ) return;
         if( e.getSlimeTick() < 20 ) return;
         if( e.getTeleportTick() < 20 ) return;
+
+        if( !e.isFuzzyServerGround() ) return;
+        if( e.isPistonAround() ) return;
         if( e.isTouchingStair() ) return;
 
         // Check

@@ -34,6 +34,13 @@ public class Check implements Listener {
         return name;
     }
     Punishment punishment;
+    String subCategory = "";
+    public String getSubCategory(){
+        return subCategory;
+    }
+    public void setSubCategory(String s){
+        subCategory = s;
+    }
     String type = "";
     public String getType(){
         return type;
@@ -46,7 +53,14 @@ public class Check implements Listener {
         vlPerFail = f;
     }
 
-    public enum Category { COMBAT, MOVEMENT, PLAYER, WORLD }
+    public enum Category {
+        COMBAT("Combat"), MOVEMENT("Movement"),
+        PLAYER("Player"), WORLD("World");
+        private String s;
+        Category(String s) {
+            this.s = s;
+        }
+    }
     public enum Punishment { NONE, KICK, BAN }
 
     public Check(String name, Category category, Punishment punishment, String description){
@@ -56,6 +70,14 @@ public class Check implements Listener {
         this.name = name;
         this.punishment = punishment;
         this.vlPerFail = 1.0f;
+    }
+
+    public void debug(Player p, String info) {
+        SalmonAC instance = SalmonAC.getInstance();
+        if( instance.isDebugMode() ) {
+            info = info.replace("/", "§7/§r");
+            p.sendMessage("§8[§d" + this.name + "§8] §r" + info);
+        }
     }
 
     public void flag(Player p){
@@ -71,13 +93,17 @@ public class Check implements Listener {
         PlayerManager playerManager = SalmonAC.getInstance().getPlayerManager();
         SalmonPlayer violator = playerManager.getPlayer( p );
         float vl = violator.onFailed( String.valueOf(name), vlPerFail );
-        String message = SalmonAC.getInstance().getPrefix() + " §e" + p.getName() + "§7 failed §e" + name + " §8[§7x§f" + String.format("%.1f", vl) + "§8]";
+        String message = SalmonAC.getInstance().getPrefix() + " §e" +
+                p.getName() + "§7 failed §e" +
+                (getSubCategory() != "" && !name.contains(getSubCategory()) ? getSubCategory() + "/" : "") + name +
+                " §8[§7x§f" + String.format("%.1f", vl) + "§8]";
         TextComponent textComponent = new TextComponent( message );
         textComponent.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT ,
                 new ComponentBuilder(
                         "§7Description: \n§r§f" + description +
                                 "\n\n§7Information: \n§r§f" + info +
-                                "\n\n§7Type: §f" + type +
+                                "\n\n§7Category: §f" + category.s + (getSubCategory() != "" ? "." + getSubCategory() : "") +
+                                "\n§7Type: §f" + type +
                                 "\n§7CheckVL: §f" + String.format("%.1f", vl) + "/" + maxVL + " §c(+" + vlPerFail + ")" +
                                 "\n§7Click To Teleport" ).create() ) );
         textComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND , "/tp " + p.getName() ) );
@@ -101,7 +127,8 @@ public class Check implements Listener {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "kick " + p.getName() + " " + reason);
                             broadcast(instance, message);
                         }else{
-                            p.sendMessage(instance.getPrefix() + "§7 You are §ckicked §7for §e" + name );
+                            p.sendMessage(instance.getPrefix() + "§7 You are §ckicked §7for §e" +
+                                    (getSubCategory() != "" && !name.contains(getSubCategory()) ? getSubCategory() + "/" : "") + name );
                         }
                     }else if ( punishment == Punishment.BAN ) {
                         String message = instance.getPrefix() + " " + p.getName() + "§7 is §cbanned §7for §4Unfair Advantage";
@@ -109,7 +136,8 @@ public class Check implements Listener {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + p.getName() + " " + reason);
                             broadcast(instance, message);
                         }else{
-                            p.sendMessage(instance.getPrefix() + "§7 You are §cbanned §7for §e" + name );
+                            p.sendMessage(instance.getPrefix() + "§7 You are §cbanned §7for §e" +
+                                    (getSubCategory() != "" && !name.contains(getSubCategory()) ? getSubCategory() + "/" : "") + name );
                         }
                     }
                 }

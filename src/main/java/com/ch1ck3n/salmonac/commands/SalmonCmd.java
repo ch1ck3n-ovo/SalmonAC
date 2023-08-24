@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
-public class SalmonACCommand implements CommandExecutor {
+public class SalmonCmd implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         SalmonAC instance = SalmonAC.getInstance();

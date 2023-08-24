@@ -154,6 +154,9 @@ public class SalmonMoveEvent extends Event {
     public boolean isLastServerGround(){
         return salmonPlayer.isLastServerGround();
     }
+    public boolean isLastLastServerGround(){
+        return salmonPlayer.isLastLastServerGround();
+    }
 
     /* ----- Tick(Ground) ----- */
     public int getServerAirTick(){
@@ -184,6 +187,9 @@ public class SalmonMoveEvent extends Event {
     public int getSlimeTick(){
         return salmonPlayer.getSlimeTick();
     }
+    public int getLavaTick(){
+        return salmonPlayer.getLavaTick();
+    }
     public int getWaterTick(){
         return salmonPlayer.getWaterTick();
     }
@@ -208,6 +214,9 @@ public class SalmonMoveEvent extends Event {
     }
     public int getJumpTick(){
         return salmonPlayer.getJumpTick();
+    }
+    public int getMoveTick(){
+        return salmonPlayer.getMoveTick();
     }
     public int getPlaceBlockTick(){
         return salmonPlayer.getPlaceBlockTick();
@@ -243,6 +252,9 @@ public class SalmonMoveEvent extends Event {
     }
     public boolean isFuzzyCollidingHorizontally() {
         return salmonPlayer.isFuzzyCollidingHorizontally();
+    }
+    public int getCarpetAround() {
+        return salmonPlayer.getCarpetAround();
     }
     public int getLilyAround() {
         return salmonPlayer.getLilyAround();
@@ -282,6 +294,9 @@ public class SalmonMoveEvent extends Event {
     public boolean isJumping() { return salmonPlayer.isJumping(); }
     public boolean isJumpUpwards() {
         return salmonPlayer.isJumpUpwards();
+    }
+    public boolean isLastJumpUpwards() {
+        return salmonPlayer.isLastJumpUpwards();
     }
     public boolean isCanJump() {
         return salmonPlayer.isCanJump();
@@ -337,11 +352,16 @@ public class SalmonMoveEvent extends Event {
             return;
         }
 
-        /* ----- MotionA ----- */
+        /* ----- Motion ----- */
         deltaX = to.getX() - from.getX();
         deltaY = to.getY() - from.getY();
         deltaZ = to.getZ() - from.getZ();
         deltaXZ = Math.hypot(deltaX,deltaZ);
+        if(deltaXZ == 0) {
+            salmonPlayer.moveTick = 0;
+        }else {
+            salmonPlayer.moveTick++;
+        }
 
         salmonPlayer.deltaX = deltaX;
         salmonPlayer.deltaY = deltaY;
@@ -353,10 +373,12 @@ public class SalmonMoveEvent extends Event {
         lastDeltaXZ = Math.hypot(lastDeltaX,lastDeltaZ);
 
         deltaXZAccel = deltaXZ - lastDeltaXZ;
+        if( Double.isInfinite(deltaXZAccel) || Double.isNaN(deltaXZAccel) ) deltaXZAccel = 0;
         salmonPlayer.deltaXZAccel = deltaXZAccel;
         lastDeltaXZAccel = salmonPlayer.lastDeltaXZAccel;
 
         deltaYAccel = deltaY - lastDeltaY;
+        if( Double.isInfinite(deltaYAccel) || Double.isNaN(deltaYAccel) ) deltaXZAccel = 0;
         salmonPlayer.deltaYAccel = deltaYAccel;
         lastDeltaYAccel = salmonPlayer.lastDeltaYAccel;
 
@@ -371,10 +393,12 @@ public class SalmonMoveEvent extends Event {
         lastDeltaPitch = salmonPlayer.lastDeltaPitch;
 
         deltaYawAccel = getDeltaYaw() / getLastDeltaYaw();
+        if( Double.isInfinite(deltaYawAccel) || Double.isNaN(deltaYawAccel) ) deltaYawAccel = 0;
         salmonPlayer.deltaYawAccel = deltaYawAccel;
         lastDeltaYawAccel = salmonPlayer.lastDeltaYawAccel;
 
         deltaPitchAccel = getDeltaPitch() / getLastDeltaPitch();
+        if( Double.isInfinite(deltaPitchAccel) || Double.isNaN(deltaPitchAccel) ) deltaPitchAccel = 0;
         salmonPlayer.deltaPitchAccel = deltaPitchAccel;
         lastDeltaPitchAccel = salmonPlayer.lastDeltaPitchAccel;
 
@@ -505,6 +529,10 @@ public class SalmonMoveEvent extends Event {
                 waterBox.count(world, Material.STATIONARY_WATER) > 0 ||
                 waterCuboid.count(world, Material.WATER) > 0 ||
                 waterCuboid.count(world, Material.STATIONARY_WATER) > 0);
+                /*(waterBox.checkBlocks(world, material -> (material == Material.WATER)) ||
+                        waterBox.checkBlocks(world, material -> (material == Material.STATIONARY_WATER)) ||
+                        waterCuboid.checkBlocks(world, material -> (material == Material.WATER)) ||
+                        waterCuboid.checkBlocks(world, material -> (material == Material.STATIONARY_WATER)));*/
 
         salmonPlayer.touchingLava = (lavaBox.count(world, Material.LAVA) > 0 ||
                 lavaBox.count(world, Material.STATIONARY_LAVA) > 0 ||
@@ -558,43 +586,45 @@ public class SalmonMoveEvent extends Event {
                 underCuboid.count(world, Material.SPRUCE_WOOD_STAIRS) > 0 ||
                 underCuboid.count(world, Material.WOOD_STAIRS) > 0);
 
+        salmonPlayer.carpetAround = lilyBox.count(world, Material.CARPET);
         salmonPlayer.lilyAround = lilyBox.count(world, Material.WATER_LILY);
 
+        salmonPlayer.lastLastServerGround = salmonPlayer.isLastServerGround();
         salmonPlayer.lastServerGround = salmonPlayer.isServerGround();
 
-        if( !nearBox.checkBlocks(world, material -> material == Material.AIR) &&
+        if( (!nearBox.checkBlocks(world, material -> material == Material.AIR) &&
                 (salmonPlayer.isMathGround() &&
                         !underCuboid.checkBlocks(world, material -> material == Material.WATER) &&
                         !underCuboid.checkBlocks(world, material -> material == Material.STATIONARY_WATER) &&
                         !underCuboid.checkBlocks(world, material -> material == Material.LAVA) &&
                         !underCuboid.checkBlocks(world, material -> material == Material.STATIONARY_LAVA) &&
                         !underCuboid.checkBlocks(world, material -> material == Material.WEB) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.SAPLING)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.LONG_GRASS)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.DEAD_BUSH)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.YELLOW_FLOWER)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.RED_ROSE)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.BROWN_MUSHROOM)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.RED_MUSHROOM)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.TORCH)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.WATER_LILY)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.CARPET)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.DOUBLE_PLANT)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.PAINTING)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.SIGN)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.LEVER)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.WOOD_PLATE)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.STONE_PLATE)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.IRON_PLATE)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.GOLD_PLATE)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.REDSTONE_TORCH_ON)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.REDSTONE_TORCH_OFF)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.STONE_BUTTON)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.REDSTONE)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.RAILS)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.ACTIVATOR_RAIL)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.DETECTOR_RAIL)) &&
-                        !underCuboid.checkBlocks(world, material -> (material == Material.POWERED_RAIL)) ) ) {
+                        !underCuboid.checkBlocks(world, material -> material == Material.SAPLING)) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.LONG_GRASS) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.DEAD_BUSH) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.YELLOW_FLOWER) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.RED_ROSE) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.BROWN_MUSHROOM) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.RED_MUSHROOM) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.TORCH) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.DOUBLE_PLANT) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.PAINTING) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.SIGN) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.LEVER) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.WOOD_PLATE) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.STONE_PLATE) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.IRON_PLATE) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.GOLD_PLATE) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.REDSTONE_TORCH_ON) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.REDSTONE_TORCH_OFF) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.STONE_BUTTON) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.REDSTONE) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.RAILS) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.ACTIVATOR_RAIL) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.DETECTOR_RAIL) &&
+                        !underCuboid.checkBlocks(world, material -> material == Material.POWERED_RAIL)) ||
+                (getCarpetAround() != 0 && salmonPlayer.isMathGround()) ||
+                (getLilyAround() != 0 && salmonPlayer.isMathGround()) ) {
             salmonPlayer.canJump = true;
             salmonPlayer.fallDistance = 0;
             salmonPlayer.jumping = false;
@@ -716,6 +746,8 @@ public class SalmonMoveEvent extends Event {
                 !nearBox.expand(g, 0.45D, g).checkBlocks(world, material -> (material == Material.DETECTOR_RAIL)) &&
                 !nearBox.expand(g, 0.45D, g).checkBlocks(world, material -> (material == Material.POWERED_RAIL))*/;
 
+        salmonPlayer.lastJumpUpwards = isJumpUpwards();
+
         if( Math.abs(deltaY - (0.41999998688697815 + PlayerUtil.getAmplifier(player, PotionEffectType.JUMP) * 0.1f)) < 0.00001 ) {
             salmonPlayer.jumpUpwards = true;
         } else {
@@ -726,6 +758,24 @@ public class SalmonMoveEvent extends Event {
             salmonPlayer.jumpTick = 10 + PlayerUtil.getAmplifier(player, PotionEffectType.JUMP) * 2;
             salmonPlayer.jumping = true;
             salmonPlayer.canJump = false;
+        }
+
+        if ( isInLava() || (isTouchingLava() &&
+                (player.getLocation().add(0.0d, 0.4d, 0.0d).getBlock().getType() == Material.LAVA ||
+                player.getLocation().add(0.0d, 0.4d, 0.0d).getBlock().getType() == Material.STATIONARY_LAVA)) ) {
+            salmonPlayer.lavaTick++;
+            salmonPlayer.fallDistance = 0;
+        } else {
+            salmonPlayer.lavaTick = 0;
+        }
+
+        if ( isInWater() || (isTouchingWater() && getLilyAround() == 0 &&
+                (player.getLocation().add(0.0d, 0.4d, 0.0d).getBlock().getType() == Material.WATER ||
+                player.getLocation().add(0.0d, 0.4d, 0.0d).getBlock().getType() == Material.STATIONARY_WATER)) ) {
+            salmonPlayer.waterTick++;
+            salmonPlayer.fallDistance = 0;
+        } else {
+            salmonPlayer.waterTick = 0;
         }
 
         if ( underCuboid.count(world, Material.ICE) > 0 || nearBox.count(world, Material.PACKED_ICE) > 0 ) {
@@ -860,6 +910,16 @@ public class SalmonMoveEvent extends Event {
         Material b = player.getEyeLocation().clone().getBlock().getType();
         return (b == Material.WATER || b == Material.STATIONARY_WATER ||
                 b == Material.LAVA || b == Material.STATIONARY_LAVA);
+    }
+
+    public boolean isInWater() {
+        Material b = player.getEyeLocation().clone().getBlock().getType();
+        return (b == Material.WATER || b == Material.STATIONARY_WATER);
+    }
+
+    public boolean isInLava() {
+        Material b = player.getEyeLocation().clone().getBlock().getType();
+        return (b == Material.LAVA || b == Material.STATIONARY_LAVA);
     }
 
     public boolean isOnLadder() {

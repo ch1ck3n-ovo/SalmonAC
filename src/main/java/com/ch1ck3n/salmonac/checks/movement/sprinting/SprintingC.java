@@ -7,7 +7,8 @@ import org.bukkit.event.EventHandler;
 public class SprintingC extends Check {
     public SprintingC(String name, Category category, Punishment punishment, String description) {
         super(name, category, punishment, description);
-        this.setType("(C)");
+        this.setType("Sneak");
+        this.setSubCategory("Sprinting");
         this.setVlPerFail(4.0f);
     }
 
