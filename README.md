@@ -1,6 +1,6 @@
 
 # SalmonAC
-A Half Packet Based Anti Cheat  
+A Semi Packet Based Anti Cheat  
 
 Free Anti-Cheat | Blatant Detection | Half Packet Based | Asynchronous  
 
